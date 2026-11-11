@@ -1,0 +1,1515 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>twitter紫蛋670更新 - 动态追踪与内容解析</title>
+  <meta name="description" content="twitter紫蛋670更新追踪站，汇总紫蛋670近期版本动态、热门条目、分类索引与用户讨论。适合关注该系列内容更新节奏与版本差异的读者查看。">
+  <meta name="keywords" content="twitter紫蛋670更新">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%236b4c9a'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='white'%3E蛋%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --primary: #6b4c9a;
+      --primary-light: #9a7cc4;
+      --primary-dark: #4a326e;
+      --bg: #f8f6fb;
+      --surface: #ffffff;
+      --text: #1e1a24;
+      --text-secondary: #5a5468;
+      --text-tertiary: #8e879c;
+      --border: #e5e0ee;
+      --radius-card: 12px;
+      --radius-btn: 8px;
+      --radius-tag: 6px;
+      --shadow: 0 2px 8px rgba(74, 50, 110, 0.06);
+      --shadow-hover: 0 6px 20px rgba(74, 50, 110, 0.12);
+      --font: system-ui, -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      --announce-h: 36px;
+      --header-h: 60px;
+      --sticky-offset: calc(var(--announce-h) + var(--header-h));
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: var(--sticky-offset); }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { color: var(--primary-dark); }
+    img { display: block; max-width: 100%; }
+    button { font-family: inherit; cursor: pointer; }
+
+    /* 吸顶公告条 */
+    .announce-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--announce-h);
+      background: var(--primary-dark);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+      overflow: hidden;
+    }
+    .announce-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+    }
+    .announce-brand {
+      font-weight: 600;
+      white-space: nowrap;
+      color: #ffd9a0;
+    }
+    .announce-scroll {
+      display: flex;
+      gap: 28px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      white-space: nowrap;
+    }
+    .announce-scroll::-webkit-scrollbar { display: none; }
+    .announce-item { display: flex; align-items: center; gap: 6px; }
+    .announce-date { color: #c9b8e0; font-size: 12px; }
+    .announce-tag {
+      background: rgba(255,255,255,0.12);
+      padding: 1px 8px;
+      border-radius: 10px;
+      font-size: 12px;
+    }
+
+    /* 吸顶页头 */
+    .site-header {
+      position: sticky;
+      top: var(--announce-h);
+      z-index: 99;
+      height: var(--header-h);
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 20px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--text);
+      flex-shrink: 0;
+    }
+    .logo svg { width: 30px; height: 30px; }
+    .main-nav {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex: 1;
+    }
+    .main-nav::-webkit-scrollbar { display: none; }
+    .main-nav a {
+      padding: 6px 12px;
+      border-radius: var(--radius-btn);
+      font-size: 14px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      transition: background 0.2s, color 0.2s;
+    }
+    .main-nav a:hover, .main-nav a:focus-visible {
+      background: var(--primary-light);
+      color: #fff;
+      outline: none;
+    }
+    .header-actions { display: flex; gap: 8px; flex-shrink: 0; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 7px 16px;
+      border-radius: var(--radius-btn);
+      font-size: 14px;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+      font-weight: 500;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-dark); color: #fff; }
+    .btn-outline { background: transparent; border-color: var(--border); color: var(--text-secondary); }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+    .menu-toggle { display: none; background: none; border: none; padding: 8px; }
+
+    /* 首屏 */
+    .hero {
+      background: linear-gradient(135deg, #f3eefa 0%, #e8ddf5 40%, #f8f6fb 100%);
+      padding: 44px 20px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 48px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(107,76,154,0.12);
+      color: var(--primary-dark);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: 36px;
+      font-weight: 800;
+      line-height: 1.25;
+      color: var(--primary-dark);
+      margin-bottom: 14px;
+      letter-spacing: -0.5px;
+    }
+    .hero-desc {
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin-bottom: 24px;
+      line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-visual {
+      position: relative;
+      height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-visual svg {
+      width: 100%;
+      height: 100%;
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-visual svg { animation: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* 三栏布局 */
+    .portal-wrap {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+      display: grid;
+      grid-template-columns: 175px 1fr 240px;
+      gap: 28px;
+      align-items: start;
+    }
+    .col-left { position: sticky; top: calc(var(--sticky-offset) + 16px); }
+    .channel-nav {
+      background: var(--surface);
+      border-radius: var(--radius-card);
+      padding: 16px 0;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+    .channel-nav h2 {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      padding: 0 16px 10px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .channel-nav a {
+      display: block;
+      padding: 8px 16px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      border-left: 3px solid transparent;
+      transition: all 0.2s;
+    }
+    .channel-nav a:hover, .channel-nav a.active {
+      background: #f3eefa;
+      color: var(--primary-dark);
+      border-left-color: var(--primary);
+    }
+    .col-main { min-width: 0; }
+    .col-right { position: sticky; top: calc(var(--sticky-offset) + 16px); }
+
+    /* 板块通用 */
+    .block {
+      background: var(--surface);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+    .block-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .block-title::before {
+      content: '';
+      width: 4px;
+      height: 20px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    .block-sub {
+      color: var(--text-tertiary);
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    /* 概览 */
+    .overview-text { font-size: 15px; color: var(--text-secondary); line-height: 1.85; }
+    .overview-text p { margin-bottom: 12px; }
+    .overview-text p:last-child { margin-bottom: 0; }
+    .overview-text strong { color: var(--primary-dark); }
+
+    /* 精选卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: #faf8fd;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: transform 0.25s, box-shadow 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+    }
+    .card img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      background: #e8ddf5;
+    }
+    .card-body { padding: 12px 14px 14px; flex: 1; display: flex; flex-direction: column; }
+    .card-type {
+      display: inline-block;
+      font-size: 11px;
+      padding: 1px 8px;
+      border-radius: var(--radius-tag);
+      background: #e8ddf5;
+      color: var(--primary-dark);
+      margin-bottom: 6px;
+      align-self: flex-start;
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .card-point {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      margin-bottom: 10px;
+      flex: 1;
+    }
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-tertiary);
+      border-top: 1px solid var(--border);
+      padding-top: 8px;
+    }
+    .card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+    .card-tags span {
+      font-size: 11px;
+      color: var(--primary);
+      background: rgba(107,76,154,0.08);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    /* 更新列表 */
+    .update-list { list-style: none; }
+    .update-list li {
+      padding: 12px 0;
+      border-bottom: 1px dashed var(--border);
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .update-list li:last-child { border-bottom: none; padding-bottom: 0; }
+    .update-date {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      white-space: nowrap;
+      min-width: 52px;
+      padding-top: 2px;
+    }
+    .update-content { flex: 1; }
+    .update-name {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .update-desc { font-size: 13px; color: var(--text-secondary); }
+
+    /* 分类入口 */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .cat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 14px 8px;
+      background: #faf8fd;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .cat-item:hover {
+      border-color: var(--primary-light);
+      background: #f3eefa;
+    }
+    .cat-icon {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: #e8ddf5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 6px;
+      font-size: 16px;
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+    .cat-name { font-size: 13px; font-weight: 500; color: var(--text); }
+
+    /* 深度解析 */
+    .deep-content h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin: 20px 0 10px;
+    }
+    .deep-content h3:first-child { margin-top: 0; }
+    .deep-content p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.85;
+      margin-bottom: 12px;
+    }
+    .deep-content ul {
+      margin: 8px 0 14px 20px;
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+    .deep-content li { margin-bottom: 6px; }
+    .deep-content strong { color: var(--text); }
+    .evidence-box {
+      background: #faf8fd;
+      border-left: 3px solid var(--primary);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 14px 0;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    /* FAQ */
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-item summary {
+      padding: 14px 0;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: '+';
+      font-size: 20px;
+      color: var(--primary);
+      font-weight: 400;
+      transition: transform 0.2s;
+    }
+    .faq-item[open] summary::after { content: '−'; }
+    .faq-answer {
+      padding: 0 0 14px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    /* 用户评论 */
+    .comment-list { list-style: none; }
+    .comment-item {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .comment-item:last-child { border-bottom: none; }
+    .comment-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .comment-avatar {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: #e8ddf5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--primary-dark);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .comment-nick { font-size: 13px; font-weight: 600; color: var(--text); }
+    .comment-time { font-size: 11px; color: var(--text-tertiary); margin-left: auto; }
+    .comment-text { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* 相关资讯 */
+    .news-item {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .news-item:last-child { border-bottom: none; }
+    .news-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .news-date { font-size: 12px; color: var(--text-tertiary); margin-bottom: 4px; }
+    .news-summary { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+
+    /* 相关推荐标签 */
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag-cloud a {
+      font-size: 13px;
+      padding: 5px 12px;
+      background: #faf8fd;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      color: var(--text-secondary);
+      transition: all 0.2s;
+    }
+    .tag-cloud a:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* 侧栏模块 */
+    .side-block {
+      background: var(--surface);
+      border-radius: var(--radius-card);
+      padding: 18px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+    .side-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .side-title::before {
+      content: '';
+      width: 3px;
+      height: 14px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    .rank-list { list-style: none; }
+    .rank-list li {
+      display: flex;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: 13px;
+      align-items: baseline;
+      border-bottom: 1px solid var(--border);
+    }
+    .rank-list li:last-child { border-bottom: none; }
+    .rank-num {
+      font-weight: 700;
+      color: var(--primary-light);
+      font-size: 14px;
+      min-width: 18px;
+    }
+    .rank-name { color: var(--text-secondary); flex: 1; }
+    .rank-hot { font-size: 11px; color: var(--text-tertiary); }
+
+    /* 补充板块：时间线 */
+    .timeline { list-style: none; position: relative; padding-left: 20px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 5px; top: 6px; bottom: 6px;
+      width: 2px;
+      background: var(--border);
+    }
+    .timeline li {
+      position: relative;
+      padding-bottom: 16px;
+      font-size: 14px;
+    }
+    .timeline li:last-child { padding-bottom: 0; }
+    .timeline li::before {
+      content: '';
+      position: absolute;
+      left: -19px; top: 6px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      border: 2px solid var(--surface);
+      box-shadow: 0 0 0 2px var(--primary-light);
+    }
+    .tl-date { font-size: 12px; color: var(--text-tertiary); font-weight: 600; }
+    .tl-title { font-weight: 600; color: var(--text); }
+    .tl-desc { font-size: 13px; color: var(--text-secondary); }
+
+    /* 投稿互动 */
+    .contribute-box {
+      background: linear-gradient(135deg, #f3eefa, #ede4f7);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+    .contribute-box p { font-size: 14px; color: var(--text-secondary); margin-bottom: 12px; }
+
+    /* 页尾 */
+    .site-footer {
+      background: #2a1f3d;
+      color: #c9b8e0;
+      padding: 40px 20px 24px;
+      margin-top: 20px;
+    }
+    .footer-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 32px;
+    }
+    .footer-brand {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-brand svg { width: 24px; height: 24px; }
+    .footer-desc { font-size: 13px; line-height: 1.7; margin-bottom: 12px; color: #a99cc0; }
+    .footer-col h4 {
+      color: #fff;
+      font-size: 14px;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    .footer-col a {
+      display: block;
+      font-size: 13px;
+      color: #a99cc0;
+      padding: 3px 0;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: #fff; }
+    .footer-bottom {
+      max-width: 1320px;
+      margin: 28px auto 0;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 12px;
+      color: #7a6d8c;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* 回到顶部 */
+    .back-top {
+      position: fixed;
+      right: 20px;
+      bottom: 30px;
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-hover);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+      z-index: 90;
+    }
+    .back-top.show { opacity: 1; visibility: visible; }
+    .back-top:hover { background: var(--primary-dark); }
+
+    /* 搜索框 */
+    .search-box {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .search-box input {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-btn);
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-box input:focus { border-color: var(--primary-light); }
+    .search-empty {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      color: var(--text-tertiary);
+      font-size: 14px;
+    }
+
+    /* 响应式 */
+    @media (max-width: 1024px) {
+      .portal-wrap {
+        grid-template-columns: 1fr 260px;
+      }
+      .col-left { display: none; }
+      .hero-inner { grid-template-columns: 1fr; gap: 24px; }
+      .hero-visual { height: 180px; order: -1; }
+      .hero h1 { font-size: 30px; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 740px) {
+      .portal-wrap { grid-template-columns: 1fr; }
+      .col-right { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .side-block { margin-bottom: 0; }
+      .main-nav { display: none; }
+      .main-nav.open {
+        display: flex;
+        position: absolute;
+        top: var(--header-h);
+        left: 0; right: 0;
+        background: var(--surface);
+        flex-direction: column;
+        padding: 12px;
+        border-bottom: 1px solid var(--border);
+        box-shadow: var(--shadow-hover);
+        z-index: 98;
+      }
+      .menu-toggle { display: block; }
+      .header-inner { gap: 12px; }
+      .hero h1 { font-size: 26px; }
+      .cat-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner { grid-template-columns: 1fr; gap: 20px; }
+      .card-grid { grid-template-columns: 1fr; }
+      .col-right { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .announce-inner { padding: 0 12px; }
+      .header-inner { padding: 0 12px; }
+      .hero { padding: 28px 12px; }
+      .portal-wrap { padding: 16px 12px 32px; }
+      .block { padding: 16px; }
+    }
+
+    /* 聚焦可见 */
+    a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      background: var(--primary);
+      color: #fff;
+      padding: 8px 16px;
+      z-index: 200;
+    }
+    .skip-link:focus { left: 8px; top: 8px; }
+  </style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳转到主要内容</a>
+
+  <!-- 吸顶公告条 -->
+  <div class="announce-bar" id="announce-bar">
+    <div class="announce-inner">
+      <span class="announce-brand">twitter紫蛋670更新</span>
+      <div class="announce-scroll">
+        <span class="announce-item"><span class="announce-date">2026-11-08</span><span class="announce-tag">紫蛋670v3.2.1</span> 开放测试</span>
+        <span class="announce-item"><span class="announce-date">2026-11-07</span><span class="announce-tag">紫蛋670</span> 新增「暗夜模式」配置</span>
+        <span class="announce-item"><span class="announce-date">2026-11-06</span><span class="announce-tag">条目库</span> 收录突破 320 条</span>
+        <span class="announce-item"><span class="announce-date">2026-11-05</span><span class="announce-tag">互动</span> 第十期投稿评选结果公布</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 吸顶页头 -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="logo" aria-label="twitter紫蛋670更新首页">
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <circle cx="16" cy="16" r="14" fill="#6b4c9a"/>
+          <circle cx="16" cy="16" r="10" fill="none" stroke="#c9b8e0" stroke-width="1.5"/>
+          <path d="M11 16 Q16 9 21 16 Q16 23 11 16" fill="#ffd9a0"/>
+        </svg>
+        <span>twitter紫蛋670更新</span>
+      </a>
+      <nav class="main-nav" id="main-nav" aria-label="主题导航">
+        <a href="#overview">领域概览</a>
+        <a href="#featured">精选推荐</a>
+        <a href="#updates">最新动态</a>
+        <a href="#categories">分类索引</a>
+        <a href="#deep-dive">深度解析</a>
+        <a href="#guide">体验指南</a>
+        <a href="#faq">常见问答</a>
+        <a href="#comments">用户评论</a>
+        <a href="#news">相关资讯</a>
+        <a href="#contribute">投稿互动</a>
+      </nav>
+      <div class="header-actions">
+        <a href="#contribute" class="btn btn-primary">投稿</a>
+      </div>
+      <button class="menu-toggle" id="menu-toggle" aria-label="展开导航菜单" aria-expanded="false" aria-controls="main-nav">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- 首屏 -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <span class="hero-badge">● 2026年11月8日 版本追踪</span>
+        <h1 id="hero-title">twitter紫蛋670更新</h1>
+        <p class="hero-desc">
+          汇总紫蛋670系列在2026年10月至11月间的版本迭代、条目变动与社区讨论。覆盖v3.0到v3.2.1的配置差异、热门条目排行、投稿评选结果，以及围绕「暗夜模式」「批量导出」等功能的实际体验反馈。
+        </p>
+        <div class="hero-actions">
+          <a href="#updates" class="btn btn-primary">查看最新动态</a>
+          <a href="#featured" class="btn btn-outline">浏览精选条目</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <svg viewBox="0 0 400 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="40" y="30" width="320" height="200" rx="16" fill="white" stroke="#d4c8e8" stroke-width="1.5"/>
+          <rect x="60" y="52" width="120" height="12" rx="6" fill="#e8ddf5"/>
+          <rect x="60" y="76" width="200" height="8" rx="4" fill="#f0ebf8"/>
+          <rect x="60" y="92" width="160" height="8" rx="4" fill="#f0ebf8"/>
+          <circle cx="310" cy="60" r="18" fill="#f3eefa" stroke="#6b4c9a" stroke-width="1.5"/>
+          <text x="310" y="65" text-anchor="middle" font-size="12" fill="#6b4c9a" font-weight="700">v3.2</text>
+          <rect x="60" y="120" width="280" height="1" fill="#e5e0ee"/>
+          <rect x="60" y="138" width="80" height="60" rx="8" fill="#faf8fd" stroke="#e5e0ee"/>
+          <rect x="72" y="150" width="56" height="6" rx="3" fill="#d4c8e8"/>
+          <rect x="72" y="164" width="40" height="6" rx="3" fill="#e8ddf5"/>
+          <rect x="156" y="138" width="80" height="60" rx="8" fill="#faf8fd" stroke="#e5e0ee"/>
+          <rect x="168" y="150" width="56" height="6" rx="3" fill="#d4c8e8"/>
+          <rect x="168" y="164" width="40" height="6" rx="3" fill="#e8ddf5"/>
+          <rect x="252" y="138" width="88" height="60" rx="8" fill="#6b4c9a"/>
+          <rect x="264" y="150" width="64" height="6" rx="3" fill="#c9b8e0"/>
+          <rect x="264" y="164" width="48" height="6" rx="3" fill="#9a7cc4"/>
+          <circle cx="120" cy="210" r="4" fill="#6b4c9a"/>
+          <circle cx="140" cy="210" r="4" fill="#d4c8e8"/>
+          <circle cx="160" cy="210" r="4" fill="#d4c8e8"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 三栏门户主体 -->
+  <div class="portal-wrap">
+    <!-- 左栏频道索引 -->
+    <aside class="col-left" aria-label="频道索引">
+      <nav class="channel-nav" aria-label="内容分类">
+        <h2>频道索引</h2>
+        <a href="#overview" class="active">领域概览</a>
+        <a href="#featured">精选条目</a>
+        <a href="#updates">版本动态</a>
+        <a href="#categories">分类索引</a>
+        <a href="#deep-dive">深度解析</a>
+        <a href="#guide">体验指南</a>
+        <a href="#faq">常见问答</a>
+        <a href="#comments">用户评论</a>
+        <a href="#news">相关资讯</a>
+        <a href="#recommend">相关推荐</a>
+        <a href="#contribute">投稿互动</a>
+      </nav>
+    </aside>
+
+    <!-- 中栏主内容 -->
+    <main class="col-main" id="main-content">
+      <!-- 1. 领域概览 -->
+      <section class="block" id="overview" aria-labelledby="overview-title">
+        <h2 class="block-title" id="overview-title">紫蛋670系列内容概览</h2>
+        <div class="overview-text">
+          <p>
+            <strong>紫蛋670</strong>是围绕数字藏品条目与轻量互动配置形成的内容系列，在2026年秋季进入v3.x迭代周期。当前活跃版本为<strong>v3.2.1</strong>（2026年11月8日发布），主要调整集中在「暗夜模式」配色方案、批量导出字段优化，以及条目详情页的标签层级重构。截至11月8日，公开条目库收录<strong>327条</strong>，较10月初的284条新增43条，其中10月28日单日更新9条创下本季度峰值。
+          </p>
+          <p>
+            内容方向上，条目按「基础形态」「交互配置」「场景皮肤」「投稿评选」四类划分。基础形态涵盖紫蛋670标准款、限定款与联名款的形态参数；交互配置记录触发条件、响应动作与兼容版本；场景皮肤收录暗夜、晨雾、霓虹三套主题的适配细节；投稿评选则是社区创作者提交的变体方案与每期评选结果。10月15日上线的「晨雾」皮肤在两周内被引用<strong>62次</strong>，超过「暗夜」同期的41次。
+          </p>
+          <p>
+            社区互动以投稿和条目对比为主。第十期投稿评选（10月26日至11月5日）收到<strong>37份</strong>有效方案，最终「渐变紫边」与「双环嵌套」两件入选。版本讨论集中在<strong>@紫蛋观察站</strong>和<strong>@670更新日志</strong>两个账号，前者在10月30日发布的v3.2对比表格获得<strong>1.2万</strong>次浏览。版本差异、条目兼容性和投稿门槛是出现频率最高的三类问题。
+          </p>
+        </div>
+      </section>
+
+      <!-- 2. 精选内容推荐 -->
+      <section class="block" id="featured" aria-labelledby="featured-title">
+        <h2 class="block-title" id="featured-title">近期值得关注的条目</h2>
+        <p class="block-sub">按版本关联度与社区讨论量筛选，更新于2026年11月8日</p>
+        <div class="search-box">
+          <input type="search" id="featured-search" placeholder="搜索条目名称或标签…" aria-label="搜索精选条目">
+        </div>
+        <div class="card-grid" id="featured-grid">
+          <article class="card" data-tags="暗夜模式 主题皮肤 配置">
+            <img src="https://picsum.photos/seed/ziDan670Anye/400/300" alt="紫蛋670暗夜模式主题界面截图" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-type">主题皮肤</span>
+              <h3 class="card-title">暗夜模式 v3.2 完整配置包</h3>
+              <div class="card-tags"><span>深色对比度</span><span>OLED适配</span><span>v3.2</span></div>
+              <p class="card-point">包含28个界面元素的色值映射与过渡曲线参数，修复了v3.1中深色背景卡片边框过亮的问题。实测在低亮度环境下阅读舒适度提升明显。</p>
+              <div class="card-meta"><span>更新 11-07</span><span>引用 41 次</span></div>
+            </div>
+          </article>
+          <article class="card" data-tags="批量导出 字段 数据">
+            <img src="https://picsum.photos/seed/ziDan670Export/400/300" alt="紫蛋670批量导出字段设置界面" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-type">交互配置</span>
+              <h3 class="card-title">批量导出字段对照表 v3.2.1</h3>
+              <div class="card-tags"><span>CSV映射</span><span>字段裁剪</span><span>兼容性</span></div>
+              <p class="card-point">列出v3.0到v3.2.1之间导出字段的增删改明细，标注了「创建时间」字段从ISO格式改为Unix时间戳的节点，方便历史数据迁移。</p>
+              <div class="card-meta"><span>更新 11-08</span><span>评分 4.6</span></div>
+            </div>
+          </article>
+          <article class="card" data-tags="渐变紫边 投稿 第十期">
+            <img src="https://picsum.photos/seed/ziDan670Jianbian/400/300" alt="渐变紫边条目方案视觉示意" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-type">投稿评选</span>
+              <h3 class="card-title">渐变紫边 · 第十期入选方案</h3>
+              <div class="card-tags"><span>紫边渐变</span><span>边缘光效</span><span>可复用</span></div>
+              <p class="card-point">作者@Kiri_670 用三层叠加实现边缘从#6b4c9a到#ffd9a0的过渡，方案文档附带参数模板，可直接套用到标准款条目。</p>
+              <div class="card-meta"><span>入选 11-05</span><span>浏览 8900</span></div>
+            </div>
+          </article>
+          <article class="card" data-tags="晨雾 皮肤 适配">
+            <img src="https://picsum.photos/seed/ziDan670Chenwu/400/300" alt="晨雾主题配色效果图" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-type">场景皮肤</span>
+              <h3 class="card-title">晨雾主题适配细则</h3>
+              <div class="card-tags"><span>浅色渐变</span><span>文字对比度</span><span>10月上线</span></div>
+              <p class="card-point">10月15日上线后成为引用最多的皮肤方案，核心是降低背景饱和度至12%，保留前景元素的紫调倾向。文档标注了与v3.1的兼容缺口。</p>
+              <div class="card-meta"><span>更新 10-15</span><span>引用 62 次</span></div>
+            </div>
+          </article>
+          <article class="card" data-tags="双环嵌套 投稿 结构">
+            <img src="https://picsum.photos/seed/ziDan670Shuanghuan/400/300" alt="双环嵌套条目结构示意" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-type">投稿评选</span>
+              <h3 class="card-title">双环嵌套 · 第十期入选方案</h3>
+              <div class="card-tags"><span>环形结构</span><span>层级嵌套</span><span>渲染优化</span></div>
+              <p class="card-point">将紫蛋670的基础圆环拆为内外两层，分别绑定不同动效曲线。作者@Nest_88 在提交说明中附了渲染开销对比：比单环方案增加12%的GPU占用。</p>
+              <div class="card-meta"><span>入选 11-05</span><span>浏览 7600</span></div>
+            </div>
+          </article>
+          <article class="card" data-tags="限定款 联名 形态">
+            <img src="https://picsum.photos/seed/ziDan670XianDing/400/300" alt="紫蛋670限定款外观示意" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-type">基础形态</span>
+              <h3 class="card-title">670限定款 · 秋叶金边参数</h3>
+              <div class="card-tags"><span>金属质感</span><span>季节限定</span><span>10月发行</span></div>
+              <p class="card-point">10月20日随v3.1.5推出的季度限定形态，金边宽度设为2.4px，比标准款多0.8px。条目库记录显示目前已产生14个衍生变体。</p>
+              <div class="card-meta"><span>更新 10-20</span><span>评分 4.4</span></div>
+            </div>
+          </article>
+          <article class="card" data-tags="霓虹 皮肤 高饱和">
+            <img src="https://picsum.photos/seed/ziDan670Nihong/400/300" alt="霓虹主题高饱和配色示意" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-type">场景皮肤</span>
+              <h3 class="card-title">霓虹主题高饱和方案</h3>
+              <div class="card-tags"><span>高对比</span><span>发光边框</span><span>争议度</span></div>
+              <p class="card-point">饱和度拉满的皮肤方案，在社区投票中支持与反对比例约六四开。反对意见集中在长时间阅读后的视觉疲劳，支持者认为夜间辨识度足够。</p>
+              <div class="card-meta"><span>更新 10-28</span><span>引用 23 次</span></div>
+            </div>
+          </article>
+          <article class="card" data-tags="对比表 版本差异 v3.1 v3.2">
+            <img src="https://picsum.photos/seed/ziDan670DuiBi/400/300" alt="紫蛋670版本对比表格截图" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-type">版本资料</span>
+              <h3 class="card-title">v3.1 与 v3.2 差异对比表</h3>
+              <div class="card-tags"><span>字段对照</span><span>迁移注意</span><span>10-30</span></div>
+              <p class="card-point">@紫蛋观察站 10月30日发布的对比表，覆盖17项配置项的默认值变化，其中「标签层级」从两级改为三级的调整影响面最大。</p>
+              <div class="card-meta"><span>发布 10-30</span><span>浏览 1.2万</span></div>
+            </div>
+          </article>
+        </div>
+        <div class="search-empty" id="search-empty">没有找到匹配的条目，试试更短的关键词。</div>
+      </section>
+
+      <!-- 3. 最新更新 -->
+      <section class="block" id="updates" aria-labelledby="updates-title">
+        <h2 class="block-title" id="updates-title">版本与条目动态</h2>
+        <p class="block-sub">2026年11月1日—11月8日</p>
+        <ul class="update-list">
+          <li><span class="update-date">11-08</span><div class="update-content"><div class="update-name">v3.2.1 补丁发布</div><div class="update-desc">修复批量导出时「标签ID」字段为空的问题，涉及v3.2.0用户约2300人。</div></div></li>
+          <li><span class="update-date">11-07</span><div class="update-content"><div class="update-name">暗夜模式配置包更新</div><div class="update-desc">新增3个界面元素的色值映射，深色卡片边框亮度从#2a2a2a调整为#1f1f1f。</div></div></li>
+          <li><span class="update-date">11-06</span><div class="update-content"><div class="update-name">条目库突破327条</div><div class="update-desc">当日新增4条，其中2条来自第十期投稿评选的落选方案公开。</div></div></li>
+          <li><span class="update-date">11-05</span><div class="update-content"><div class="update-name">第十期投稿评选结果公布</div><div class="update-desc">「渐变紫边」「双环嵌套」入选，评选周期内收到37份方案，有效34份。</div></div></li>
+          <li><span class="update-date">11-03</span><div class="update-content"><div class="update-name">批量导出字段对照表更新</div><div class="update-desc">补充「创建时间」格式变更的迁移说明，附v3.0历史数据转换脚本示例。</div></div></li>
+          <li><span class="update-date">11-01</span><div class="update-content"><div class="update-name">秋叶金边限定款衍生变体达14个</div><div class="update-desc">社区提交的变体方案中，7个调整了金边宽度，4个改动了底色渐变方向。</div></div></li>
+          <li><span class="update-date">10-30</span><div class="update-content"><div class="update-name">v3.1与v3.2差异对比表发布</div><div class="update-desc">@紫蛋观察站 整理17项配置项变化，其中标签层级调整被转发最多。</div></div></li>
+          <li><span class="update-date">10-28</span><div class="update-content"><div class="update-name">单日更新9条创季度峰值</div><div class="update-desc">包括3条基础形态参数修正、2条交互配置补充和4条场景皮肤适配记录。</div></div></li>
+          <li><span class="update-date">10-26</span><div class="update-content"><div class="update-name">第十期投稿通道开启</div><div class="update-desc">本期主题为「边缘处理」，要求方案在标准款基础上改动不超过3个参数。</div></div></li>
+          <li><span class="update-date">10-20</span><div class="update-content"><div class="update-name">秋叶金边限定款随v3.1.5上线</div><div class="update-desc">金边宽度2.4px，较标准款增加0.8px，首发附12个官方参数预设。</div></div></li>
+        </ul>
+      </section>
+
+      <!-- 4. 分类入口 -->
+      <section class="block" id="categories" aria-labelledby="categories-title">
+        <h2 class="block-title" id="categories-title">按类别查找条目</h2>
+        <div class="cat-grid">
+          <a href="#featured" class="cat-item"><div class="cat-icon">形</div><span class="cat-name">基础形态</span></a>
+          <a href="#featured" class="cat-item"><div class="cat-icon">配</div><span class="cat-name">交互配置</span></a>
+          <a href="#featured" class="cat-item"><div class="cat-icon">肤</div><span class="cat-name">场景皮肤</span></a>
+          <a href="#featured" class="cat-item"><div class="cat-icon">投</div><span class="cat-name">投稿评选</span></a>
+          <a href="#deep-dive" class="cat-item"><div class="cat-icon">版</div><span class="cat-name">版本差异</span></a>
+          <a href="#guide" class="cat-item"><div class="cat-icon">迁</div><span class="cat-name">数据迁移</span></a>
+          <a href="#comments" class="cat-item"><div class="cat-icon">评</div><span class="cat-name">社区评价</span></a>
+          <a href="#news" class="cat-item"><div class="cat-icon">讯</div><span class="cat-name">更新资讯</span></a>
+        </div>
+      </section>
+
+      <!-- 5. 深度解析 -->
+      <section class="block" id="deep-dive" aria-labelledby="deep-title">
+        <h2 class="block-title" id="deep-title">紫蛋670版本迭代的三个判断维度</h2>
+        <div class="deep-content">
+          <h3>字段变更比界面调整更影响使用</h3>
+          <p>
+            社区讨论热度往往集中在视觉层面——暗夜模式好不好看、霓虹皮肤会不会太刺眼。但真正让用户卡住的是字段层面的变化。v3.2.0把「标签层级」从两级扩到三级，看起来只是多一层嵌套，实际影响的是批量导出后的表格结构。原先的A列「标签」在v3.2.0之后拆成「标签一级」和「标签二级」两列，直接导致依赖固定列序的脚本报错。
+          </p>
+          <div class="evidence-box">
+            <strong>可核对的时间线：</strong>10月30日@紫蛋观察站 发布对比表，初步标注了标签层级变化；11月1日首批用户反馈导出脚本报错；11月3日字段对照表补充迁移说明；11月8日v3.2.1修复空字段问题。从变化出现到修复工具发布，间隔9天。
+          </div>
+          <p>
+            判断一个版本更新的影响面，看配置项默认值的变化数量比看界面截图有效。v3.2.0共改动17项配置默认值，其中标签层级、导出时间格式、卡片边框色值三项涉及数据结构，其余14项只影响显示。数据结构层的变化会传导到导出、脚本和第三方工具，显示层的变化最多影响截图观感。
+          </p>
+
+          <h3>皮肤类条目的价值在于复用成本</h3>
+          <p>
+            晨雾主题10月15日上线后引用62次，暗夜模式同期41次，霓虹主题23次。引用次数本身说明不了美丑，但能反映复用成本。晨雾的文档里附了完整的色值映射表和文字对比度说明，参数直接复制就能用；暗夜模式v3.1时期缺少过渡曲线参数，用户需要自己补；霓虹主题的发光边框在部分设备上需要额外调整渲染参数。
+          </p>
+          <ul>
+            <li><strong>晨雾：</strong>文档含28组色值 + 4档对比度说明 + 3个设备适配备注，复制即用。</li>
+            <li><strong>暗夜：</strong>v3.2之前缺少过渡曲线，v3.2补丁后完整，引用数在补丁后三天内增加11次。</li>
+            <li><strong>霓虹：</strong>发光边框需设备侧配合，社区反馈在LCD屏上溢出明显，文档标注了「建议OLED环境使用」。</li>
+          </ul>
+          <p>
+            反过来看，投稿评选的评分标准也在往复用性上靠。第十期要求「在标准款基础上改动不超过3个参数」，就是在限制方案变成一次性展品。入选的渐变紫边和双环嵌套都附带了参数模板，落选的方案里有几份视觉效果不错，但改动参数超过10个，难以直接套用。
+          </p>
+
+          <h3>投稿质量与文档完整度的相关性</h3>
+          <p>
+            第十期37份投稿中，有效方案34份，3份因缺少参数说明被退回。入选的两份方案文档都包含：参数清单、适配版本说明、预期效果描述。落选方案中，有7份只有效果截图没有参数，5份参数描述模糊（如「调一下紫色」），这些方案在初筛阶段就被标记为「不可复用」。
+          </p>
+          <p>
+            一个可被反驳的判断：视觉效果决定投稿能否被看到，文档完整度决定能否被选用。第十期里视觉效果评分最高的方案「流光渐变」最终落选，原因是参数文档只有一句话「参考晨雾自调」。这个判断在第九期也成立——第九期入选的三个方案文档完整度都在80%以上，而落选的方案中完整度超过60%的只有两份。
+          </p>
+        </div>
+      </section>
+
+      <!-- 6. 体验指南 -->
+      <section class="block" id="guide" aria-labelledby="guide-title">
+        <h2 class="block-title" id="guide-title">从版本差异到条目选择的路径</h2>
+        <div class="deep-content">
+          <p>
+            面对一个更新了三个小版本的系列，先看哪部分取决于你要做什么。如果是要迁移旧数据，优先读字段对照表——v3.2.1和v3.0之间「创建时间」「标签层级」「导出分隔符」三项有差异，对照表里标了迁移脚本的示例。如果只是在界面上用，暗夜模式和晨雾主题的配置包直接导入即可，两者的文档完整度都够。
+          </p>
+          <p>
+            判断一个条目值不值得花时间，看三点：文档有没有附参数模板、适配版本是否标明、社区里有没有人实际引用过。以秋叶金边限定款为例，官方发布了12个预设参数，适配v3.1.5及以上，社区已产生14个衍生变体——这三个信号同时存在，说明条目有实际使用基础。反观霓虹主题，参数模板有，适配版本标了，但引用只有23次且集中在10月28日到30日之间，之后没有新增引用，热度消退得比较快。
+          </p>
+          <p>
+            同类条目比较时，把引用次数和更新日期间隔放在一起看。晨雾62次引用、最近一次更新在11月3日，间隔5天；暗夜41次引用、最近更新11月7日，间隔1天。前者引用基数大但更新节奏放缓，后者引用少但还在活跃维护。要长期用选晨雾，要跟进最新适配选暗夜。
+          </p>
+        </div>
+      </section>
+
+      <!-- 7. FAQ -->
+      <section class="block" id="faq" aria-labelledby="faq-title">
+        <h2 class="block-title" id="faq-title">常见问题</h2>
+        <details class="faq-item">
+          <summary>v3.2.1和v3.2.0有什么区别？</summary>
+          <div class="faq-answer">v3.2.1主要修复批量导出时「标签ID」字段为空的问题，涉及v3.2.0用户约2300人。配置项默认值没有变化，界面也没有调整，属于补丁级更新。升级后重新导出即可看到标签ID填充正常。</div>
+        </details>
+        <details class="faq-item">
+          <summary>暗夜模式在v3.1上能用吗？</summary>
+          <div class="faq-answer">v3.2完整配置包里有6个界面元素依赖v3.2的渲染接口，在v3.1上导入会丢失过渡曲线效果。v3.1用户建议用v3.1.5时期的暗夜配置（引用数18次那一版），或者等社区做向下兼容的改版包。</div>
+        </details>
+        <details class="faq-item">
+          <summary>投稿评选对文档有什么要求？</summary>
+          <div class="faq-answer">第十期开始要求提交参数清单、适配版本说明和预期效果描述三项。37份投稿中有3份因缺参数说明被退回。评选标准里文档完整度和视觉效果分开打分，文档不完整的方案在初筛阶段就会被标记。</div>
+        </details>
+        <details class="faq-item">
+          <summary>晨雾和暗夜哪个更适合长时间阅读？</summary>
+          <div class="faq-answer">晨雾的背景饱和度12%，文字对比度在WCAG标准下达到AA级；暗夜v3.2把卡片边框亮度从#2a2a2a调到#1f1f1f，深色环境对比度提升。白天用晨雾、夜间用暗夜是社区里常见的组合，两个皮肤可以分别绑定到不同场景配置里。</div>
+        </details>
+        <details class="faq-item">
+          <summary>秋叶金边限定款还会出衍生变体吗？</summary>
+          <div class="faq-answer">10月20日上线至今已产生14个衍生变体，最近一条11月1日提交。官方没有明确截止日期，但第十期投稿评选的主题是「边缘处理」，金边宽度调整属于这个范畴，后续变体可能通过投稿通道继续增加。</div>
+        </details>
+        <details class="faq-item">
+          <summary>标签层级从两级改三级后导出表格怎么调整？</summary>
+          <div class="faq-answer">v3.2.0之后「标签」列拆成「标签一级」和「标签二级」两列，第三级放在「标签三级」列。v3.2.1在字段对照表里附了转换脚本示例，用Python读取旧表格后按分隔符拆分再写入新列。对照表11月3日更新，标注了分隔符从「|」改为「/」的变化。</div>
+        </details>
+      </section>
+
+      <!-- 8. 用户评论 -->
+      <section class="block" id="comments" aria-labelledby="comments-title">
+        <h2 class="block-title" id="comments-title">社区讨论</h2>
+        <ul class="comment-list">
+          <li class="comment-item">
+            <div class="comment-head"><span class="comment-avatar">K</span><span class="comment-nick">Kiri_670</span><span class="comment-time">11-08</span></div>
+            <p class="comment-text">渐变紫边那个方案我自己调的时候三层叠加顺序搞反了，边缘光效全跑到里面去了。文档里写的顺序是底色→渐变层→边缘光，我一开始把渐变层放最上面，结果整个糊掉。</p>
+          </li>
+          <li class="comment-item">
+            <div class="comment-head"><span class="comment-avatar">N</span><span class="comment-nick">Nest_88</span><span class="comment-time">11-08</span></div>
+            <p class="comment-text">双环嵌套渲染开销比单环多12%，这个数我拿Pixel 7和中端机各跑了一遍，中端机上差距拉到18%。低端设备慎用吧，或者把外环动效关了。</p>
+          </li>
+          <li class="comment-item">
+            <div class="comment-head"><span class="comment-avatar">紫</span><span class="comment-nick">紫蛋观察站</span><span class="comment-time">11-07</span></div>
+            <p class="comment-text">v3.2.1补丁修得挺快，11月6日反馈集中的空字段问题，8日就出补丁了。不过标签层级那个拆分还是得手动处理，脚本示例能用但得改路径。</p>
+          </li>
+          <li class="comment-item">
+            <div class="comment-head"><span class="comment-avatar">晨</span><span class="comment-nick">晨雾爱好者</span><span class="comment-time">11-07</span></div>
+            <p class="comment-text">晨雾用了快一个月，白天看确实舒服。晚上换暗夜，但暗夜v3.1那会儿边框太亮的问题终于修了。</p>
+          </li>
+          <li class="comment-item">
+            <div class="comment-head"><span class="comment-avatar">A</span><span class="comment-nick">Anye_User</span><span class="comment-time">11-06</span></div>
+            <p class="comment-text">暗夜模式新的#1f1f1f边框比之前低调多了，之前那个#2a2a2a在OLED上还是有点跳。</p>
+          </li>
+          <li class="comment-item">
+            <div class="comment-head"><span class="comment-avatar">流</span><span class="comment-nick">流光渐变作者</span><span class="comment-time">11-06</span></div>
+            <p class="comment-text">落选就落选吧，参数文档确实写得太随意了，「参考晨雾自调」这句话现在看自己都觉得敷衍。下次认真写。</p>
+          </li>
+          <li class="comment-item">
+            <div class="comment-head"><span class="comment-avatar">六</span><span class="comment-nick">670老用户</span><span class="comment-time">11-05</span></div>
+            <p class="comment-text">从v3.0跟到v3.2.1，导出字段改了三次。第一次时间格式，第二次标签层级，这次又修空字段。每次都得改脚本，习惯了。</p>
+          </li>
+          <li class="comment-item">
+            <div class="comment-head"><span class="comment-avatar">霓</span><span class="comment-nick">霓虹不刺眼</span><span class="comment-time">11-04</span></div>
+            <p class="comment-text">霓虹主题在LCD屏上确实溢光，换了OLED之后好很多。文档里写了建议OLED使用，但没写LCD上会怎样，这个可以补一下。</p>
+          </li>
+          <li class="comment-item">
+            <div class="comment-head"><span class="comment-avatar">秋</span><span class="comment-nick">秋叶金边收藏</span><span class="comment-time">11-03</span></div>
+            <p class="comment-text">限定款的金边宽度2.4px，标准款1.6px，差0.8px肉眼能看出来但截图里不明显。社区做的变体里有几个把金边压到1.2px，反而更耐看。</p>
+          </li>
+          <li class="comment-item">
+            <div class="comment-head"><span class="comment-avatar">标</span><span class="comment-nick">标签层级受害者</span><span class="comment-time">11-02</span></div>
+            <p class="comment-text">三级标签拆出来之后Excel里多了两列，我那个按列号取值的宏直接废了。11月3日看到对照表才知道要用新的列索引。</p>
+          </li>
+          <li class="comment-item">
+            <div class="comment-head"><span class="comment-avatar">路</span><span class="comment-nick">路过看更新</span><span class="comment-time">11-01</span></div>
+            <p class="comment-text">投稿门槛是不是有点高，3个参数限制让很多想法施展不开。不过想想也是，改动太多确实没法复用。</p>
+          </li>
+          <li class="comment-item">
+            <div class="comment-head"><span class="comment-avatar">数</span><span class="comment-nick">数据迁移中</span><span class="comment-time">10-31</span></div>
+            <p class="comment-text">对照表里分隔符从「|」改成「/」这个提示救了命，我旧数据里几十条带「|」的标签全乱套了，照着改完才恢复正常。</p>
+          </li>
+          <li class="comment-item">
+            <div class="comment-head"><span class="comment-avatar">摸</span><span class="comment-nick">摸鱼小能手</span><span class="comment-time">10-30</span></div>
+            <p class="comment-text">十期投稿看了几份，有些截图挺好看但点开文档就两行字，这种确实没法用。入选的那两个文档写得跟说明书似的，服气。</p>
+          </li>
+          <li class="comment-item">
+            <div class="comment-head"><span class="comment-avatar">今</span><span class="comment-nick">今天看什么</span><span class="comment-time">10-29</span></div>
+            <p class="comment-text">单日更新9条那天我刷了好几遍条目库，基础形态参数修正那3条其实挺重要的，但讨论度不如霓虹皮肤高。视觉党的胜利。</p>
+          </li>
+          <li class="comment-item">
+            <div class="comment-head"><span class="comment-avatar">R</span><span class="comment-nick">Render_W</span><span class="comment-time">10-28</span></div>
+            <p class="comment-text">双环的12%开销对比单环，但如果把外环动效帧率降到30fps，差距能缩到7%左右。文档里没提这个调法，自己试出来的。</p>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 9. 相关资讯 -->
+      <section class="block" id="news" aria-labelledby="news-title">
+        <h2 class="block-title" id="news-title">近期相关资讯</h2>
+        <article class="news-item">
+          <div class="news-title">v3.2.1补丁11月8日发布，修复批量导出空字段问题</div>
+          <div class="news-date">2026-11-08</div>
+          <p class="news-summary">补丁说明提及受影响用户约2300人，问题根源在v3.2.0重构标签层级时遗漏了ID字段的填充逻辑。官方建议升级后重新执行一次导出操作。</p>
+        </article>
+        <article class="news-item">
+          <div class="news-title">第十期投稿评选结果：渐变紫边、双环嵌套入选</div>
+          <div class="news-date">2026-11-05</div>
+          <p class="news-summary">本期共收到37份方案，有效34份，3份因缺参数说明被退回。评选方表示文档完整度与视觉效果分开打分，两份入选方案均在两项上达到80分以上。</p>
+        </article>
+        <article class="news-item">
+          <div class="news-title">@紫蛋观察站 发布v3.1与v3.2差异对比表，17项配置变化</div>
+          <div class="news-date">2026-10-30</div>
+          <p class="news-summary">对比表标注了标签层级从两级改为三级的具体影响，包括导出列数增加和分隔符变化。该表发布后两天内被转发约340次，成为11月初迁移工作的主要参考。</p>
+        </article>
+        <article class="news-item">
+          <div class="news-title">10月28日单日更新9条条目，创本季度峰值</div>
+          <div class="news-date">2026-10-28</div>
+          <p class="news-summary">9条更新中基础形态参数修正3条、交互配置补充2条、场景皮肤适配4条。条目库总量从318条增至327条，10月累计新增43条。</p>
+        </article>
+        <article class="news-item">
+          <div class="news-title">秋叶金边限定款上线一周，衍生变体达14个</div>
+          <div class="news-date">2026-10-27</div>
+          <p class="news-summary">14个变体中7个调整金边宽度、4个改动底色渐变方向、3个修改边缘光效强度。官方预设的12个参数模板被引用最多的三个都涉及金边宽度调整。</p>
+        </article>
+        <article class="news-item">
+          <div class="news-title">晨雾主题引用数62次，超暗夜模式同期41次</div>
+          <div class="news-date">2026-10-25</div>
+          <p class="news-summary">晨雾10月15日上线后十天内引用数达62次。文档完整度是主要差异：晨雾附28组色值和4档对比度说明，暗夜v3.1版本缺少过渡曲线参数。</p>
+        </article>
+      </section>
+
+      <!-- 10. 相关推荐 -->
+      <section class="block" id="recommend" aria-labelledby="recommend-title">
+        <h2 class="block-title" id="recommend-title">相关条目与方向</h2>
+        <div class="tag-cloud">
+          <a href="#featured">渐变紫边参数模板</a>
+          <a href="#featured">双环嵌套渲染开销</a>
+          <a href="#deep-dive">标签层级迁移脚本</a>
+          <a href="#featured">晨雾色值映射表</a>
+          <a href="#featured">暗夜v3.2过渡曲线</a>
+          <a href="#featured">秋叶金边宽度对比</a>
+          <a href="#deep-dive">投稿文档完整度</a>
+          <a href="#guide">霓虹OLED适配</a>
+          <a href="#updates">v3.2.1空字段修复</a>
+        </div>
+      </section>
+
+      <!-- 11. 补充板块：时间线 -->
+      <section class="block" id="timeline" aria-labelledby="timeline-title">
+        <h2 class="block-title" id="timeline-title">版本与条目时间线</h2>
+        <ul class="timeline">
+          <li><span class="tl-date">2026-11-08</span><div class="tl-title">v3.2.1 发布</div><div class="tl-desc">修复批量导出空字段，涉及约2300名用户。</div></li>
+          <li><span class="tl-date">2026-11-05</span><div class="tl-title">第十期投稿评选结果公布</div><div class="tl-desc">渐变紫边、双环嵌套入选，34份有效方案。</div></li>
+          <li><span class="tl-date">2026-11-03</span><div class="tl-title">字段对照表补充迁移说明</div><div class="tl-desc">附v3.0历史数据转换脚本示例。</div></li>
+          <li><span class="tl-date">2026-10-30</span><div class="tl-title">v3.1与v3.2差异对比表发布</div><div class="tl-desc">17项配置项变化，标签层级调整影响最大。</div></li>
+          <li><span class="tl-date">2026-10-28</span><div class="tl-title">单日更新9条创季度峰值</div><div class="tl-desc">条目库总量增至327条。</div></li>
+          <li><span class="tl-date">2026-10-20</span><div class="tl-title">秋叶金边限定款上线</div><div class="tl-desc">随v3.1.5发布，金边宽度2.4px。</div></li>
+          <li><span class="tl-date">2026-10-15</span><div class="tl-title">晨雾主题上线</div><div class="tl-desc">背景饱和度12%，上线十天引用62次。</div></li>
+        </ul>
+      </section>
+
+      <!-- 12. 投稿互动 -->
+      <section class="block" id="contribute" aria-labelledby="contribute-title">
+        <h2 class="block-title" id="contribute-title">投稿与交流</h2>
+        <div class="contribute-box">
+          <p>第十一期投稿通道将于11月10日开启，本期主题「纹理叠加」。提交方案需包含参数清单、适配版本说明和预期效果描述，三项齐全的方案进入初筛。</p>
+          <a href="#faq" class="btn btn-primary">查看投稿要求</a>
+        </div>
+      </section>
+    </main>
+
+    <!-- 右栏辅助 -->
+    <aside class="col-right" aria-label="辅助信息">
+      <div class="side-block">
+        <h2 class="side-title">条目热度榜</h2>
+        <ol class="rank-list">
+          <li><span class="rank-num">1</span><span class="rank-name">晨雾主题</span><span class="rank-hot">62次引用</span></li>
+          <li><span class="rank-num">2</span><span class="rank-name">暗夜模式v3.2</span><span class="rank-hot">41次</span></li>
+          <li><span class="rank-num">3</span><span class="rank-name">渐变紫边方案</span><span class="rank-hot">8900浏览</span></li>
+          <li><span class="rank-num">4</span><span class="rank-name">双环嵌套方案</span><span class="rank-hot">7600浏览</span></li>
+          <li><span class="rank-num">5</span><span class="rank-name">霓虹主题</span><span class="rank-hot">23次引用</span></li>
+          <li><span class="rank-num">6</span><span class="rank-name">秋叶金边限定款</span><span class="rank-hot">14个变体</span></li>
+          <li><span class="rank-num">7</span><span class="rank-name">v3.1/v3.2对比表</span><span class="rank-hot">1.2万浏览</span></li>
+        </ol>
+      </div>
+      <div class="side-block">
+        <h2 class="side-title">最近更新</h2>
+        <ul class="rank-list">
+          <li><span class="rank-name">v3.2.1 补丁</span><span class="rank-hot">11-08</span></li>
+          <li><span class="rank-name">暗夜配置包</span><span class="rank-hot">11-07</span></li>
+          <li><span class="rank-name">条目库327条</span><span class="rank-hot">11-06</span></li>
+          <li><span class="rank-name">投稿评选结果</span><span class="rank-hot">11-05</span></li>
+          <li><span class="rank-name">字段对照表</span><span class="rank-hot">11-03</span></li>
+        </ul>
+      </div>
+      <div class="side-block">
+        <h2 class="side-title">快捷入口</h2>
+        <div class="tag-cloud">
+          <a href="#faq">投稿要求</a>
+          <a href="#categories">分类索引</a>
+          <a href="#deep-dive">版本差异</a>
+          <a href="#guide">体验路径</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- 页尾 -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">
+          <svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true">
+            <circle cx="16" cy="16" r="14" fill="#9a7cc4"/>
+            <circle cx="16" cy="16" r="10" fill="none" stroke="#e8ddf5" stroke-width="1.5"/>
+            <path d="M11 16 Q16 9 21 16 Q16 23 11 16" fill="#ffd9a0"/>
+          </svg>
+          twitter紫蛋670更新
+        </div>
+        <p class="footer-desc">
+          覆盖2026年10月至11月的版本迭代与条目变动，包含v3.0至v3.2.1共四个版本的配置差异记录、327条条目索引、十期投稿评选归档。每周三与周六集中更新，版本发布当日追加补录。
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>内容分类</h4>
+        <a href="#featured">基础形态</a>
+        <a href="#featured">交互配置</a>
+        <a href="#featured">场景皮肤</a>
+        <a href="#featured">投稿评选</a>
+      </div>
+      <div class="footer-col">
+        <h4>版本参考</h4>
+        <a href="#updates">v3.2.1 补丁</a>
+        <a href="#deep-dive">v3.1/v3.2对比</a>
+        <a href="#guide">字段迁移说明</a>
+        <a href="#timeline">版本时间线</a>
+      </div>
+      <div class="footer-col">
+        <h4>互动</h4>
+        <a href="#contribute">投稿通道</a>
+        <a href="#comments">社区讨论</a>
+        <a href="#faq">常见问题</a>
+        <a href="#recommend">相关推荐</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>内容以社区公开记录与版本日志为参考，条目信息为示例整理。</span>
+      <span>最近核对：2026-11-08</span>
+    </div>
+  </footer>
+
+  <button class="back-top" id="back-top" aria-label="回到顶部">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
+
+  <script>
+    (function() {
+      // 移动端菜单
+      var menuToggle = document.getElementById('menu-toggle');
+      var mainNav = document.getElementById('main-nav');
+      if (menuToggle && mainNav) {
+        menuToggle.addEventListener('click', function() {
+          var isOpen = mainNav.classList.toggle('open');
+          menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+        mainNav.addEventListener('click', function(e) {
+          if (e.target.tagName === 'A') {
+            mainNav.classList.remove('open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && mainNav.classList.contains('open')) {
+            mainNav.classList.remove('open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.focus();
+          }
+        });
+      }
+
+      // 回到顶部
+      var backTop = document.getElementById('back-top');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > window.innerHeight) {
+          backTop.classList.add('show');
+        } else {
+          backTop.classList.remove('show');
+        }
+      });
+      backTop.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // 精选条目搜索
+      var searchInput = document.getElementById('featured-search');
+      var grid = document.getElementById('featured-grid');
+      var empty = document.getElementById('search-empty');
+      if (searchInput && grid) {
+        var cards = grid.querySelectorAll('.card');
+        searchInput.addEventListener('input', function() {
+          var q = this.value.trim().toLowerCase();
+          var found = 0;
+          cards.forEach(function(card) {
+            var text = card.textContent.toLowerCase();
+            var tags = (card.getAttribute('data-tags') || '').toLowerCase();
+            var match = !q || text.indexOf(q) !== -1 || tags.indexOf(q) !== -1;
+            card.style.display = match ? '' : 'none';
+            if (match) found++;
+          });
+          empty.style.display = found === 0 ? 'block' : 'none';
+        });
+      }
+
+      // 频道导航高亮
+      var navLinks = document.querySelectorAll('.channel-nav a');
+      var sections = [];
+      navLinks.forEach(function(link) {
+        var href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          var el = document.querySelector(href);
+          if (el) sections.push({ el: el, link: link });
+        }
+      });
+      if (sections.length > 0) {
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              navLinks.forEach(function(l) { l.classList.remove('active'); });
+              var match = sections.find(function(s) { return s.el === entry.target; });
+              if (match) match.link.classList.add('active');
+            }
+          });
+        }, { rootMargin: '-20% 0px -60% 0px' });
+        sections.forEach(function(s) { observer.observe(s.el); });
+      }
+    })();
+  </script>
+
+  <!-- 结构化数据 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "twitter紫蛋670更新",
+    "description": "追踪紫蛋670系列版本迭代、条目变动与社区讨论的内容聚合页。",
+    "inLanguage": "zh-CN"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "v3.2.1和v3.2.0有什么区别？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "v3.2.1主要修复批量导出时「标签ID」字段为空的问题，涉及v3.2.0用户约2300人。配置项默认值没有变化，界面也没有调整，属于补丁级更新。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "暗夜模式在v3.1上能用吗？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "v3.2完整配置包里有6个界面元素依赖v3.2的渲染接口，在v3.1上导入会丢失过渡曲线效果。v3.1用户建议用v3.1.5时期的暗夜配置，或者等社区做向下兼容的改版包。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "投稿评选对文档有什么要求？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "第十期开始要求提交参数清单、适配版本说明和预期效果描述三项。37份投稿中有3份因缺参数说明被退回。评选标准里文档完整度和视觉效果分开打分。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "晨雾和暗夜哪个更适合长时间阅读？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "晨雾的背景饱和度12%，文字对比度在WCAG标准下达到AA级；暗夜v3.2把卡片边框亮度从#2a2a2a调到#1f1f1f，深色环境对比度提升。白天用晨雾、夜间用暗夜是社区里常见的组合。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "秋叶金边限定款还会出衍生变体吗？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "10月20日上线至今已产生14个衍生变体，最近一条11月1日提交。官方没有明确截止日期，但第十期投稿评选的主题是「边缘处理」，金边宽度调整属于这个范畴。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "标签层级从两级改三级后导出表格怎么调整？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "v3.2.0之后「标签」列拆成「标签一级」和「标签二级」两列，第三级放在「标签三级」列。v3.2.1字段对照表附了转换脚本示例，分隔符从「|」改为「/」。"
+        }
+      }
+    ]
+  }
+  </script>
+</body>
+                                            </html>
