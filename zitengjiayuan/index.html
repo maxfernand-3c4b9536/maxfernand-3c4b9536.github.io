@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>紫藤家园sp - 社区生活与同好交流平台</title>
+  <meta name="description" content="紫藤家园sp 汇聚社区生活记录与同好交流内容。涵盖邻里活动、手作工坊、宠物日常、闲置交换、摄影作品与活动报名，适合关注社区文化、邻里互动与兴趣同好的居民浏览。">
+  <meta name="keywords" content="紫藤家园sp">
+  <style>
+    /* ---------- 全局色彩与变量 ---------- */
+    :root {
+      --brand: #6b4e71;
+      --brand-light: #9b7fa0;
+      --brand-dark: #4a3350;
+      --bg: #faf8f5;
+      --surface: #ffffff;
+      --text-primary: #2e2a2b;
+      --text-secondary: #5e5a5b;
+      --text-tertiary: #8e8a8b;
+      --divider: #e6e1dd;
+      --radius-card: 16px;
+      --radius-btn: 10px;
+      --radius-tag: 8px;
+      --radius-banner: 24px;
+      --shadow-default: 0 4px 12px rgba(0,0,0,0.04);
+      --shadow-hover: 0 8px 24px rgba(0,0,0,0.08);
+      --font-base: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', sans-serif;
+      --transition: 0.2s ease;
+      --header-height: 64px;
+      --announce-height: 40px;
+      --total-sticky: calc(var(--header-height) + var(--announce-height));
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-base);
+      background-color: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding-top: var(--total-sticky);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    ul, ol { list-style: none; }
+    img { display: block; max-width: 100%; height: auto; }
+
+    /* ---------- 吸顶公告条 ---------- */
+    .announce-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1001;
+      height: var(--announce-height);
+      background: var(--brand-dark);
+      color: #f0e9f2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      padding: 0 16px;
+      gap: 24px;
+      white-space: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .announce-bar::-webkit-scrollbar { display: none; }
+    .announce-bar .brand-tag {
+      font-weight: 600;
+      color: #d9c8dd;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+    }
+    .announce-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .announce-item .date {
+      background: rgba(255,255,255,0.15);
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+    }
+    .announce-sep { width: 1px; height: 16px; background: rgba(255,255,255,0.2); }
+
+    /* ---------- 吸顶页头 ---------- */
+    .site-header {
+      position: fixed;
+      top: var(--announce-height);
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: var(--header-height);
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--divider);
+      display: flex;
+      align-items: center;
+    }
+    .header-inner {
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .logo-svg { width: 32px; height: 32px; }
+    .logo-text {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--brand-dark);
+      letter-spacing: -0.3px;
+    }
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex-wrap: nowrap;
+    }
+    .main-nav::-webkit-scrollbar { display: none; }
+    .nav-link {
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      transition: background var(--transition), color var(--transition);
+    }
+    .nav-link:hover { background: #f0ecf2; color: var(--brand-dark); }
+    .header-actions { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+    .search-btn {
+      background: none;
+      border: 1px solid var(--divider);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: border-color var(--transition);
+    }
+    .search-btn:hover { border-color: var(--brand-light); }
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      color: var(--text-primary);
+    }
+
+    /* ---------- 首屏 ---------- */
+    .hero {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 48px 24px 32px;
+      display: grid;
+      grid-template-columns: 1fr 0.8fr;
+      gap: 40px;
+      align-items: center;
+      position: relative;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      font-size: 0.85rem;
+      color: var(--brand);
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--brand-dark);
+      line-height: 1.2;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      padding: 12px 28px;
+      border-radius: var(--radius-btn);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    .btn-primary:hover { background: var(--brand-dark); box-shadow: var(--shadow-hover); }
+    .btn-outline {
+      background: transparent;
+      color: var(--brand-dark);
+      border: 1.5px solid var(--brand-light);
+      padding: 12px 28px;
+      border-radius: var(--radius-btn);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .btn-outline:hover { background: #f5eff7; border-color: var(--brand); }
+
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-visual svg {
+      width: 100%;
+      max-width: 380px;
+      height: auto;
+    }
+    .floating-card {
+      position: absolute;
+      background: var(--surface);
+      border-radius: 14px;
+      box-shadow: var(--shadow-default);
+      padding: 12px 16px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: float 6s ease-in-out infinite;
+    }
+    .floating-card:nth-child(2) { top: 10%; right: 0; animation-delay: 0.5s; }
+    .floating-card:nth-child(3) { bottom: 10%; left: 0; animation-delay: 1.5s; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .floating-card { animation: none; }
+    }
+
+    /* ---------- 主内容区（三栏门户） ---------- */
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 24px 64px;
+      display: grid;
+      grid-template-columns: 180px 1fr 240px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* ---------- 左频道栏 ---------- */
+    .left-sidebar { position: sticky; top: calc(var(--total-sticky) + 16px); }
+    .channel-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-tertiary);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    .channel-list { display: flex; flex-direction: column; gap: 2px; }
+    .channel-link {
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      transition: background var(--transition), color var(--transition);
+    }
+    .channel-link:hover { background: #f0ecf2; color: var(--brand-dark); }
+    .channel-link.active { background: #ede5f0; color: var(--brand-dark); font-weight: 600; }
+
+    /* ---------- 主栏 ---------- */
+    .main-column { min-width: 0; }
+
+    .section {
+      margin-bottom: 48px;
+    }
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--brand-dark);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 22px;
+      background: var(--brand);
+      border-radius: 2px;
+    }
+
+    /* 概览 */
+    .overview-text {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+    .overview-text p { margin-bottom: 12px; }
+
+    /* 精选卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: var(--shadow-default);
+      transition: transform var(--transition), box-shadow var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+    .card-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      background: #eee;
+    }
+    .card-body { padding: 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .card-type {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--brand);
+      background: #f0e9f2;
+      padding: 2px 10px;
+      border-radius: 20px;
+      align-self: flex-start;
+    }
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+    .card-desc {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+      margin-top: 4px;
+    }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-size: 0.7rem;
+      background: #f5f2f0;
+      color: var(--text-secondary);
+      padding: 2px 8px;
+      border-radius: var(--radius-tag);
+    }
+
+    /* 最新更新列表 */
+    .update-list { display: flex; flex-direction: column; gap: 2px; }
+    .update-item {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      transition: background var(--transition);
+      background: var(--surface);
+      margin-bottom: 2px;
+    }
+    .update-item:hover { background: #f8f5f9; }
+    .update-date {
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+      white-space: nowrap;
+      min-width: 72px;
+    }
+    .update-name {
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--text-primary);
+    }
+    .update-summary {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin-left: auto;
+      text-align: right;
+    }
+
+    /* 分类入口 */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .category-item {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 16px 12px;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      box-shadow: var(--shadow-default);
+      transition: background var(--transition), color var(--transition);
+      cursor: default;
+    }
+    .category-item:hover { background: #f0e9f2; color: var(--brand-dark); }
+
+    /* 深度解析 */
+    .deep-dive {
+      background: var(--surface);
+      border-radius: var(--radius-card);
+      padding: 28px 32px;
+      box-shadow: var(--shadow-default);
+    }
+    .deep-dive h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--brand-dark);
+      margin: 24px 0 12px;
+    }
+    .deep-dive h3:first-of-type { margin-top: 0; }
+    .deep-dive p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+    .deep-dive ul {
+      list-style: disc;
+      padding-left: 20px;
+      margin-bottom: 12px;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .deep-dive li { margin-bottom: 6px; }
+
+    /* 体验指南 */
+    .guide-steps { display: flex; flex-direction: column; gap: 16px; }
+    .step-item {
+      display: flex;
+      gap: 16px;
+      background: var(--surface);
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: var(--shadow-default);
+    }
+    .step-num {
+      width: 32px;
+      height: 32px;
+      background: var(--brand);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .step-content h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+    .step-content p { font-size: 0.85rem; color: var(--text-secondary); }
+
+    /* FAQ */
+    .faq-list { display: flex; flex-direction: column; gap: 8px; }
+    details {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 4px 20px;
+      box-shadow: var(--shadow-default);
+    }
+    summary {
+      font-weight: 600;
+      font-size: 0.92rem;
+      padding: 12px 0;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: '+'; font-size: 1.2rem; color: var(--brand); }
+    details[open] summary::after { content: '−'; }
+    details p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      padding-bottom: 16px;
+      line-height: 1.7;
+    }
+
+    /* 评论 */
+    .comment-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .comment-card {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 14px 16px;
+      box-shadow: var(--shadow-default);
+    }
+    .comment-user {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .comment-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--brand-light);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .comment-nickname { font-size: 0.8rem; font-weight: 600; color: var(--text-primary); }
+    .comment-text { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+
+    /* 资讯 */
+    .news-list { display: flex; flex-direction: column; gap: 12px; }
+    .news-item {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 16px 20px;
+      box-shadow: var(--shadow-default);
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .news-date {
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+      white-space: nowrap;
+      padding-top: 2px;
+    }
+    .news-content h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+    .news-content p { font-size: 0.82rem; color: var(--text-secondary); }
+
+    /* 相关推荐标签 */
+    .rec-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .rec-tag {
+      background: var(--surface);
+      border: 1px solid var(--divider);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      transition: border-color var(--transition), color var(--transition);
+    }
+    .rec-tag:hover { border-color: var(--brand-light); color: var(--brand-dark); }
+
+    /* 补充板块：热门榜单 */
+    .rank-list { display: flex; flex-direction: column; gap: 2px; }
+    .rank-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 16px;
+      background: var(--surface);
+      border-radius: 10px;
+      margin-bottom: 2px;
+    }
+    .rank-num {
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--brand);
+      width: 24px;
+      text-align: center;
+    }
+    .rank-name { font-weight: 600; font-size: 0.9rem; flex: 1; }
+    .rank-score { font-size: 0.8rem; color: var(--text-tertiary); }
+
+    /* ---------- 右侧辅助栏 ---------- */
+    .right-sidebar { position: sticky; top: calc(var(--total-sticky) + 16px); display: flex; flex-direction: column; gap: 24px; }
+    .sidebar-card {
+      background: var(--surface);
+      border-radius: 14px;
+      padding: 18px 20px;
+      box-shadow: var(--shadow-default);
+    }
+    .sidebar-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--brand-dark);
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--divider);
+    }
+    .hot-list { display: flex; flex-direction: column; gap: 10px; }
+    .hot-item { display: flex; gap: 8px; font-size: 0.82rem; align-items: baseline; }
+    .hot-index { color: var(--brand-light); font-weight: 700; }
+    .hot-name { color: var(--text-secondary); }
+    .hot-heat { margin-left: auto; font-size: 0.72rem; color: var(--text-tertiary); }
+
+    .submit-card {
+      background: linear-gradient(135deg, #f3edf5 0%, #e8dcea 100%);
+      border-radius: 14px;
+      padding: 20px;
+    }
+    .submit-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; color: var(--brand-dark); }
+    .submit-card p { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px; }
+    .btn-small {
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .btn-small:hover { background: var(--brand-dark); }
+
+    /* ---------- 页脚 ---------- */
+    .site-footer {
+      background: #2e2a2b;
+      color: #c5bfc1;
+      padding: 48px 24px 32px;
+      margin-top: 32px;
+    }
+    .footer-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 40px;
+    }
+    .footer-brand h3 { color: #fff; font-size: 1.2rem; margin-bottom: 12px; }
+    .footer-brand p { font-size: 0.85rem; line-height: 1.7; color: #a8a1a3; }
+    .footer-group h4 { color: #e0d9db; font-size: 0.85rem; margin-bottom: 12px; }
+    .footer-group a { display: block; font-size: 0.82rem; color: #a8a1a3; margin-bottom: 8px; transition: color var(--transition); }
+    .footer-group a:hover { color: #fff; }
+    .footer-bottom {
+      max-width: 1320px;
+      margin: 32px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid #3f3a3b;
+      font-size: 0.78rem;
+      color: #7a7475;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* ---------- 回到顶部 ---------- */
+    .back-to-top {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: var(--shadow-default);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity var(--transition), visibility var(--transition);
+      z-index: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .back-to-top.visible { opacity: 1; visibility: visible; }
+    .back-to-top:hover { background: var(--brand-dark); }
+
+    /* ---------- 移动端遮罩与菜单 ---------- */
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 2000;
+    }
+    .mobile-overlay.active { display: block; }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 280px;
+      background: var(--surface);
+      z-index: 2001;
+      padding: 24px;
+      overflow-y: auto;
+      transform: translateX(-100%);
+      transition: transform 0.25s ease;
+    }
+    .mobile-menu.open { transform: translateX(0); display: block; }
+    .mobile-menu .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      margin-bottom: 20px;
+      color: var(--text-primary);
+    }
+    .mobile-menu .nav-link { display: block; padding: 12px 0; border-bottom: 1px solid var(--divider); }
+
+    /* ---------- 响应式 ---------- */
+    @media (max-width: 1024px) {
+      .container {
+        grid-template-columns: 1fr 240px;
+      }
+      .left-sidebar { display: none; }
+      .hero { grid-template-columns: 1fr; gap: 24px; }
+      .hero-visual { order: -1; }
+      .hero-visual svg { max-width: 260px; }
+      .category-grid { grid-template-columns: repeat(4, 1fr); }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 740px) {
+      .container { grid-template-columns: 1fr; padding: 0 16px 40px; }
+      .right-sidebar { position: static; margin-top: 32px; }
+      h1 { font-size: 2rem; }
+      .hero { padding: 32px 16px 24px; }
+      .hero-visual { order: -1; }
+      .hero-visual svg { max-width: 200px; }
+      .main-nav { display: none; }
+      .hamburger { display: block; }
+      .search-btn span { display: none; }
+      .category-grid { grid-template-columns: repeat(2, 1fr); }
+      .announce-bar { justify-content: flex-start; padding-left: 16px; gap: 16px; }
+      .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+      .update-item { flex-wrap: wrap; }
+      .update-summary { margin-left: 0; text-align: left; width: 100%; }
+      .deep-dive { padding: 20px; }
+      .hero-actions { flex-direction: column; }
+      .btn-primary, .btn-outline { width: 100%; text-align: center; }
+    }
+
+    @media (max-width: 360px) {
+      h1 { font-size: 1.6rem; }
+      .card-grid { grid-template-columns: 1fr; }
+      .comment-grid { grid-template-columns: 1fr; }
+    }
+
+    /* 焦点样式 */
+    a:focus-visible, button:focus-visible, summary:focus-visible {
+      outline: 2px solid var(--brand);
+      outline-offset: 2px;
+    }
+
+    /* 锚点偏移 */
+    :target {
+      scroll-margin-top: calc(var(--total-sticky) + 16px);
+    }
+  </style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+  <!-- 吸顶公告条 -->
+  <div class="announce-bar">
+    <span class="brand-tag">紫藤家园sp</span>
+    <span class="announce-item"><span class="date">11月7日</span> 秋季旧物交换市集开放报名</span>
+    <span class="announce-sep"></span>
+    <span class="announce-item"><span class="date">11月6日</span> 手作工坊第12期「藤编杯垫」作品已上传</span>
+    <span class="announce-sep"></span>
+    <span class="announce-item"><span class="date">11月5日</span> 社区摄影展征稿中 · 已有47幅作品</span>
+  </div>
+
+  <!-- 吸顶页头 -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/#hero" class="logo-area" aria-label="紫藤家园sp 首页">
+        <svg class="logo-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="20" cy="20" r="18" stroke="#6b4e71" stroke-width="2.5"/>
+          <path d="M12 22c2-6 6-10 12-12" stroke="#9b7fa0" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="14" cy="26" r="3" fill="#6b4e71"/>
+          <circle cx="22" cy="28" r="2.5" fill="#9b7fa0"/>
+          <circle cx="28" cy="22" r="2" fill="#6b4e71"/>
+          <path d="M20 20v-8" stroke="#4a3350" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span class="logo-text">紫藤家园sp</span>
+      </a>
+      <nav class="main-nav" aria-label="主导航">
+        <a class="nav-link" href="/#overview">社区概览</a>
+        <a class="nav-link" href="/#featured">精选推荐</a>
+        <a class="nav-link" href="/#updates">最新动态</a>
+        <a class="nav-link" href="/#categories">分类入口</a>
+        <a class="nav-link" href="/#deepdive">深度解析</a>
+        <a class="nav-link" href="/#guide">体验指南</a>
+        <a class="nav-link" href="/#faq">常见问答</a>
+        <a class="nav-link" href="/#comments">邻里留言</a>
+        <a class="nav-link" href="/#news">社区资讯</a>
+        <a class="nav-link" href="/#recommend">相关推荐</a>
+        <a class="nav-link" href="/#rank">热门榜</a>
+      </nav>
+      <div class="header-actions">
+        <button class="search-btn" aria-label="搜索社区内容">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <span>搜索</span>
+        </button>
+        <button class="hamburger" aria-label="打开菜单" aria-expanded="false" aria-controls="mobile-menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 移动端遮罩与菜单 -->
+  <div class="mobile-overlay" id="mobile-overlay" aria-hidden="true"></div>
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="移动端导航">
+    <button class="close-btn" aria-label="关闭菜单">✕</button>
+    <a class="nav-link" href="/#overview">社区概览</a>
+    <a class="nav-link" href="/#featured">精选推荐</a>
+    <a class="nav-link" href="/#updates">最新动态</a>
+    <a class="nav-link" href="/#categories">分类入口</a>
+    <a class="nav-link" href="/#deepdive">深度解析</a>
+    <a class="nav-link" href="/#guide">体验指南</a>
+    <a class="nav-link" href="/#faq">常见问答</a>
+    <a class="nav-link" href="/#comments">邻里留言</a>
+    <a class="nav-link" href="/#news">社区资讯</a>
+    <a class="nav-link" href="/#recommend">相关推荐</a>
+    <a class="nav-link" href="/#rank">热门榜</a>
+  </div>
+
+  <!-- 主题首屏 -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">邻里 · 同好 · 日常</div>
+      <h1>紫藤家园sp</h1>
+      <p class="hero-desc">汇聚社区生活记录与同好交流内容。从藤编工坊到旧物交换，从宠物日常到摄影作品，这里有邻里间真实的分享与活动。适合关注社区文化、兴趣同好与线下互动的居民浏览。</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('featured').scrollIntoView({behavior:'smooth'})">浏览精选</button>
+        <button class="btn-outline" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">查看分类</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="40" y="80" width="320" height="180" rx="20" fill="#f0e9f2"/>
+        <circle cx="200" cy="170" r="60" fill="#e0d4e4"/>
+        <path d="M160 150 Q200 100 240 150" stroke="#6b4e71" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="180" cy="160" r="8" fill="#9b7fa0"/>
+        <circle cx="220" cy="160" r="8" fill="#9b7fa0"/>
+        <rect x="100" y="220" width="60" height="8" rx="4" fill="#d9c8dd"/>
+        <rect x="240" y="220" width="60" height="8" rx="4" fill="#d9c8dd"/>
+        <path d="M60 40 L80 20 L100 40" stroke="#9b7fa0" stroke-width="2" stroke-linecap="round"/>
+        <path d="M300 40 L320 20 L340 40" stroke="#9b7fa0" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <div class="floating-card">
+        <span>📸</span> 社区摄影展 · 47幅作品
+      </div>
+      <div class="floating-card">
+        <span>🧶</span> 藤编工坊第12期
+      </div>
+    </div>
+  </section>
+
+  <!-- 主内容区（三栏门户） -->
+  <div class="container">
+    <!-- 左频道栏 -->
+    <aside class="left-sidebar" aria-label="频道索引">
+      <div class="channel-title">频道索引</div>
+      <nav class="channel-list">
+        <a class="channel-link active" href="/#overview">社区概览</a>
+        <a class="channel-link" href="/#featured">精选推荐</a>
+        <a class="channel-link" href="/#updates">最新动态</a>
+        <a class="channel-link" href="/#categories">分类入口</a>
+        <a class="channel-link" href="/#deepdive">深度解析</a>
+        <a class="channel-link" href="/#guide">体验指南</a>
+        <a class="channel-link" href="/#faq">常见问答</a>
+        <a class="channel-link" href="/#comments">邻里留言</a>
+        <a class="channel-link" href="/#news">社区资讯</a>
+        <a class="channel-link" href="/#recommend">相关推荐</a>
+        <a class="channel-link" href="/#rank">热门榜</a>
+        <a class="channel-link" href="/#submit">投稿与互动</a>
+      </nav>
+    </aside>
+
+    <!-- 主栏 -->
+    <main class="main-column">
+
+      <!-- 1. 主题领域概览 -->
+      <section class="section" id="overview">
+        <h2 class="section-title">社区生活方向与内容类型</h2>
+        <div class="overview-text">
+          <p>紫藤家园sp 围绕社区日常展开，内容覆盖手工藤编、旧物交换、宠物养护、社区摄影、亲子活动、阳台种植、邻里互助、读书分享等方向。2026年秋季，藤编工坊已办到第12期，旧物交换市集从每月一场增加到两场，摄影展征稿在11月5日启动。这些活动由居民自发组织，地点集中在社区活动中心与中央花园。</p>
+          <p>手工藤编是社区里持续最久的内容线，从2024年3月第1期到现在，累计参与居民超过200人次。旧物交换在2025年9月调整规则，加入“物品状况说明卡”，减少现场纠纷。宠物板块以日常养护和走失互助为主，10月有3起走失信息通过社区群在24小时内找到。摄影作品以手机拍摄为主，社区每季度评选一次，最近一期主题是“秋天的窗台”。</p>
+          <p>这些内容适合两类居民：一是刚搬入社区、想快速了解活动节奏和参与方式的新住户；二是长期关注某一类别（比如藤编或种植）的同好，需要查看往期作品和下一期时间。所有条目按活动类别归档，方便按兴趣检索。</p>
+        </div>
+      </section>
+
+      <!-- 2. 精选内容推荐 -->
+      <section class="section" id="featured">
+        <h2 class="section-title">精选内容推荐</h2>
+        <div class="card-grid">
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/tengbian12/400/300" alt="藤编工坊第12期藤编杯垫作品展示" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-type">手作工坊</span>
+              <h3 class="card-title">藤编杯垫 · 第12期作品合集</h3>
+              <p class="card-desc">11月6日上传的12件杯垫作品，其中8件使用社区花园修剪的紫藤枝条，3件混编了旧棉线。最薄的一件仅2.1毫米，由居民周敏制作。</p>
+              <div class="tag-list">
+                <span class="tag">藤编</span>
+                <span class="tag">杯垫</span>
+                <span class="tag">旧物利用</span>
+              </div>
+              <div class="card-meta"><span>🔥 热度 382</span><span>11月6日更新</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/oldswap11/400/300" alt="旧物交换市集现场摊位上的书籍与瓷器" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-type">旧物交换</span>
+              <h3 class="card-title">11月旧物交换市集 · 摊主名单与物品清单</h3>
+              <p class="card-desc">11月7日报名截止，共23个摊位。物品以书籍（47本）、瓷餐具（19件）、儿童玩具（31件）为主。新增“物品状况说明卡”要求填写使用年限和瑕疵。</p>
+              <div class="tag-list">
+                <span class="tag">市集</span>
+                <span class="tag">闲置</span>
+                <span class="tag">交换规则</span>
+              </div>
+              <div class="card-meta"><span>🔥 热度 516</span><span>11月7日更新</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/petwalkoct/400/300" alt="社区花园里一只橘猫在长椅上晒太阳" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-type">宠物日常</span>
+              <h3 class="card-title">10月宠物走失互助记录 · 3起全部找回</h3>
+              <p class="card-desc">10月12日、10月19日、10月25日各发生一起猫走失，通过社区宠物群和花园监控，分别在6小时、11小时、24小时内找回。其中一只橘猫自己走回单元门口。</p>
+              <div class="tag-list">
+                <span class="tag">猫</span>
+                <span class="tag">走失互助</span>
+                <span class="tag">社区群</span>
+              </div>
+              <div class="card-meta"><span>🔥 热度 274</span><span>10月26日更新</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/photoautumn/400/300" alt="窗台上摆着一盆绿植和一杯茶，阳光斜照" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-type">社区摄影</span>
+              <h3 class="card-title">“秋天的窗台”摄影展 · 47幅入围作品</h3>
+              <p class="card-desc">11月5日征稿启动，截至11月8日已收到47幅。拍摄对象集中在窗台植物、猫、晒秋物品。社区将于11月15日组织居民投票，票数最高的3幅印成明信片。</p>
+              <div class="tag-list">
+                <span class="tag">摄影展</span>
+                <span class="tag">手机摄影</span>
+                <span class="tag">窗台</span>
+              </div>
+              <div class="card-meta"><span>🔥 热度 631</span><span>11月8日更新</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/balconyplant/400/300" alt="阳台上的番茄盆栽结出红色果实" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-type">阳台种植</span>
+              <h3 class="card-title">阳台番茄过冬指南 · 社区种植组经验帖</h3>
+              <p class="card-desc">种植组在10月28日整理了一份过冬清单，包括夜间保温膜厚度（建议0.08毫米）、浇水频率（从每天改为每3天）、补光灯瓦数（12瓦LED即可）。附7位组员的实际温度记录。</p>
+              <div class="tag-list">
+                <span class="tag">番茄</span>
+                <span class="tag">阳台种植</span>
+                <span class="tag">过冬</span>
+              </div>
+              <div class="card-meta"><span>🔥 热度 445</span><span>10月29日更新</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/readingclub/400/300" alt="社区活动室里围坐读书的人群" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-type">读书分享</span>
+              <h3 class="card-title">11月共读书目《树木与人类》 · 领读人笔记</h3>
+              <p class="card-desc">本月选书为《树木与人类》，领读人陈岚在11月2日整理了前两章的讨论提纲，重点在“城市绿化中的树种选择”。线下讨论安排在11月16日下午2点，活动室203。</p>
+              <div class="tag-list">
+                <span class="tag">读书会</span>
+                <span class="tag">树木</span>
+                <span class="tag">线下讨论</span>
+              </div>
+              <div class="card-meta"><span>🔥 热度 208</span><span>11月2日更新</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 3. 最新更新 / 动态 -->
+      <section class="section" id="updates">
+        <h2 class="section-title">最新更新与社区动态</h2>
+        <div class="update-list">
+          <div class="update-item">
+            <span class="update-date">11月8日</span>
+            <span class="update-name">“秋天的窗台”摄影展征稿数达47幅</span>
+            <span class="update-summary">较11月5日启动时增加31幅，其中窗台植物类占24幅</span>
+          </div>
+          <div class="update-item">
+            <span class="update-date">11月7日</span>
+            <span class="update-name">旧物交换市集报名截止，23个摊位确认</span>
+            <span class="update-summary">新增“物品状况说明卡”，瓷器类须注明是否磕碰</span>
+          </div>
+          <div class="update-item">
+            <span class="update-date">11月6日</span>
+            <span class="update-name">藤编工坊第12期作品上传 · 12件杯垫</span>
+            <span class="update-summary">8件使用紫藤枝条，周敏作品最薄2.1毫米</span>
+          </div>
+          <div class="update-item">
+            <span class="update-date">11月5日</span>
+            <span class="update-name">社区摄影展征稿启动，主题“秋天的窗台”</span>
+            <span class="update-summary">每人限投3幅，手机拍摄即可，11月15日投票</span>
+          </div>
+          <div class="update-item">
+            <span class="update-date">11月3日</span>
+            <span class="update-name">宠物走失互助群新增“夜间值班”排班</span>
+            <span class="update-summary">每晚8点到次日早8点安排2人轮值，10月试运行找回率100%</span>
+          </div>
+          <div class="update-item">
+            <span class="update-date">11月2日</span>
+            <span class="update-name">读书会11月共读《树木与人类》领读笔记发布</span>
+            <span class="update-summary">讨论提纲含6个问题，线下活动11月16日203室</span>
+          </div>
+          <div class="update-item">
+            <span class="update-date">10月30日</span>
+            <span class="update-name">阳台种植组发布番茄过冬清单</span>
+            <span class="update-summary">7位组员实测数据，保温膜0.08毫米，浇水改3天一次</span>
+          </div>
+          <div class="update-item">
+            <span class="update-date">10月28日</span>
+            <span class="update-name">10月旧物交换市集复盘：瓷餐具成交率最低</span>
+            <span class="update-summary">19件瓷餐具仅换出7件，原因集中在“瑕疵未提前说明”</span>
+          </div>
+          <div class="update-item">
+            <span class="update-date">10月26日</span>
+            <span class="update-name">10月宠物走失记录归档 · 3起全部找回</span>
+            <span class="update-summary">最快6小时，最慢24小时，均通过社区群与花园监控</span>
+          </div>
+          <div class="update-item">
+            <span class="update-date">10月24日</span>
+            <span class="update-name">藤编工坊第11期藤编花篮作品展在活动室走廊</span>
+            <span class="update-summary">9件作品，其中3件使用旧藤椅拆解材料</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. 分类入口 -->
+      <section class="section" id="categories">
+        <h2 class="section-title">分类入口</h2>
+        <div class="category-grid">
+          <a class="category-item" href="/#featured">藤编工坊</a>
+          <a class="category-item" href="/#featured">旧物交换</a>
+          <a class="category-item" href="/#featured">宠物日常</a>
+          <a class="category-item" href="/#featured">社区摄影</a>
+          <a class="category-item" href="/#featured">阳台种植</a>
+          <a class="category-item" href="/#featured">读书分享</a>
+          <a class="category-item" href="/#featured">亲子活动</a>
+          <a class="category-item" href="/#featured">邻里互助</a>
+        </div>
+      </section>
+
+      <!-- 5. 深度解析正文 -->
+      <section class="section" id="deepdive">
+        <h2 class="section-title">深度解析：社区活动如何持续运转</h2>
+        <div class="deep-dive">
+          <h3>藤编工坊为什么能办到第12期</h3>
+          <p>第1期在2024年3月，参与7人，材料由组织者李红自费购买。第6期开始，材料来源改为社区花园每年修剪的紫藤枝条，成本从每期约120元降到不足20元。第10期引入“作品留档”机制，每期结束后拍照上传，目前累计存档作品87件。第12期的12件杯垫中，8件使用紫藤枝条，说明材料本地化已经稳定。</p>
+          <p>一个可比较的差异：同期社区组织的书法班办了4期后暂停，原因是没有稳定的材料来源，每次采购纸张和墨汁约200元，参与者逐渐减少。藤编的低成本材料链条是它持续下来的关键，而不是因为“大家更有兴趣”。2026年8月的一次居民座谈会上，有居民提出藤编作品可以用于社区公共空间装饰，10月活动室走廊就挂出了第11期的花篮作品。</p>
+
+          <h3>旧物交换的规则调整与效果</h3>
+          <p>2025年9月之前，旧物交换采用“先到先得”的摊位制，曾出现两人争抢同一件瓷器的情况。9月调整后，每个摊位必须填写“物品状况说明卡”，内容包括使用年限、瑕疵位置、是否可清洗。10月28日的复盘数据显示，瓷餐具成交率从调整前的约52%降到37%，但现场纠纷从3起降到0起。组织者张薇在11月1日的社区例会上说：“成交率下降是因为大家更谨慎了，但吵架没了，总体更省心。”</p>
+          <ul>
+            <li>已公开事实：10月市集瓷餐具19件，换出7件，成交率37%。</li>
+            <li>当事人回应：张薇（组织者）11月1日例会发言，认为“省心比成交率重要”。</li>
+            <li>网友推测：社区群里有居民认为“说明卡太麻烦，不如直接拍照上传瑕疵”，但未形成正式提议。</li>
+          </ul>
+
+          <h3>宠物走失互助的响应环节拆解</h3>
+          <p>10月的3起走失案例平均找回时间13.7小时。快速找回依赖三个环节：第一，社区宠物群有327人，消息发出后通常5分钟内有人回应；第二，中央花园的4个监控探头覆盖主要通道，物业配合调取录像的等待时间约30分钟；第三，10月试运行的“夜间值班”排班，每晚2人轮值到早8点，保证夜间消息不被淹没。三个环节中缺少任何一个，找回时间都会拉长。10月19日的案例中，走失发生在22点，夜间值班人员在23点看到消息并联系物业，次日9点找回，用时11小时；如果没有值班，消息可能到第二天早上才被看到。</p>
+
+          <h3>摄影展的评选机制与往期对比</h3>
+          <p>“秋天的窗台”是社区摄影展的第4期。前三期主题分别为“社区里的猫”（2025年12月）、“雨天窗景”（2026年3月）、“夏夜灯光”（2026年7月）。投票方式从第3期开始改为居民现场投票加社区群接龙，第3期有效票数89票，比第2期的47票翻了一倍。本期已收到47幅作品，投票安排在11月15日，地点活动室大厅。一个值得注意的变化：第1期有12幅作品使用相机拍摄，本期47幅全部为手机拍摄，这反映了参与门槛的降低。</p>
+        </div>
+      </section>
+
+      <!-- 6. 体验指南 / 消费路径 -->
+      <section class="section" id="guide">
+        <h2 class="section-title">参与社区活动的顺序与判断</h2>
+        <div class="guide-steps">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>先看活动频率和时间</h4>
+              <p>藤编工坊每月一期，固定在第二个周六下午；旧物交换每月两场，分别在月初和月末；摄影展每季度一次。刚搬来的居民可以先从频率最高的旧物交换入手，半天就能了解社区活动的基本节奏。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>判断一个活动是否适合自己</h4>
+              <p>看往期作品和参与人数。藤编工坊第12期12人，作品有照片存档；读书会11月报名9人，讨论提纲提前发布。参与人数在5到15人之间的活动通常互动质量较高，超过30人的活动以旁观为主。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>比较同类活动的投入</h4>
+              <p>藤编工坊材料免费（使用社区紫藤枝条），自备剪刀即可；阳台种植组需要自购种子和花盆，10月清单中一盆番茄的起步成本约35元；摄影展无费用，手机拍摄即可。投入差异明显，按自己的预算和时间选择。</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>查看最近一次活动的反馈</h4>
+              <p>每次活动结束后，组织者会在社区群发一条简短的复盘，包括参与人数、作品数量、遇到的问题。11月6日藤编工坊复盘提到“紫藤枝条需要提前泡水2小时”，这个细节在往期复盘中没出现过，说明组织者在持续调整流程。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. FAQ -->
+      <section class="section" id="faq">
+        <h2 class="section-title">常见问答</h2>
+        <div class="faq-list">
+          <details>
+            <summary>藤编工坊需要自带材料吗？</summary>
+            <p>不需要。第12期使用的紫藤枝条由社区花园统一修剪提供。参与者只需自带一把剪刀和一块垫布。如果不想用公共材料，也可以自带旧藤椅拆解条，但需要在报名时备注，方便组织者调整材料准备量。</p>
+          </details>
+          <details>
+            <summary>旧物交换市集的“物品状况说明卡”要写什么？</summary>
+            <p>写三项内容：使用年限（比如“3年”）、瑕疵位置（比如“杯口有0.5毫米磕碰”）、是否可清洗。10月市集有居民因为没写磕碰位置，换出后又被退回，现场协调花了20分钟。说明卡在报名时领取，也可以自己手写。</p>
+          </details>
+          <details>
+            <summary>社区摄影展的投票规则是什么？</summary>
+            <p>11月15日在活动室大厅现场投票，每人3票，得票最高的3幅作品印成明信片。同时社区群会发起接龙投票，接龙票数与现场票数相加。第3期有效票数89票，现场票和接龙票大约各占一半。</p>
+          </details>
+          <details>
+            <summary>宠物走失后第一时间应该做什么？</summary>
+            <p>先在社区宠物群发消息，附照片和走失时间地点；同时联系物业调取花园监控，物业值班电话在每栋单元门公告栏。10月三起案例中，消息发出后5分钟内就有人回应的有两起，第三起发生在深夜，由夜间值班人员处理。</p>
+          </details>
+          <details>
+            <summary>阳台番茄过冬需要买补光灯吗？</summary>
+            <p>社区种植组的建议是12瓦LED补光灯即可，不需要专业植物灯。10月28日的清单里，7位组员中有5位使用12瓦LED，2位使用15瓦，实际效果差别不大。更关键的是夜间保温膜厚度，建议0.08毫米，太薄不够保温，太厚影响透光。</p>
+          </details>
+          <details>
+            <summary>读书会的线下讨论可以旁听吗？</summary>
+            <p>可以。11月16日下午2点在活动室203，旁听不需要报名，但座位有限，正式报名者优先。领读人陈岚会在讨论前10分钟发一份单页提纲，包含6个问题。旁听者可以在最后20分钟参与发言。</p>
+          </details>
+        </div>
+      </section>
+
+      <!-- 8. 用户评论 -->
+      <section class="section" id="comments">
+        <h2 class="section-title">邻里留言</h2>
+        <div class="comment-grid">
+          <div class="comment-card">
+            <div class="comment-user">
+              <div class="comment-avatar">王</div>
+              <span class="comment-nickname">王姐的阳台</span>
+            </div>
+            <p class="comment-text">第12期那个2.1毫米的杯垫我摸过，确实薄，但边缘有点毛刺，用之前得拿砂纸磨一下。</p>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">
+              <div class="comment-avatar">陈</div>
+              <span class="comment-nickname">陈岚读书</span>
+            </div>
+            <p class="comment-text">《树木与人类》第三章讲行道树选择，跟咱们社区花园的紫藤完全两种思路，挺有意思。</p>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">
+              <div class="comment-avatar">张</div>
+              <span class="comment-nickname">张薇在忙</span>
+            </div>
+            <p class="comment-text">旧物交换说明卡确实麻烦，但10月没吵架是真的。我那个瓷碗写了“碗底有划痕”，人家看了还是换了。</p>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">
+              <div class="comment-avatar">李</div>
+              <span class="comment-nickname">李红手作</span>
+            </div>
+            <p class="comment-text">紫藤枝条泡水两小时这个事，第11期就该写进流程，第12期才补上，组织上还是有点随意。</p>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">
+              <div class="comment-avatar">赵</div>
+              <span class="comment-nickname">赵叔遛狗</span>
+            </div>
+            <p class="comment-text">夜间值班排班表贴出来了，11月轮到我家，晚上10点到12点，还行，能接受。</p>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">
+              <div class="comment-avatar">周</div>
+              <span class="comment-nickname">周敏藤编</span>
+            </div>
+            <p class="comment-text">杯垫最薄那件是我的，其实还能再薄，但再薄就软了，喝水放杯子会晃。</p>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">
+              <div class="comment-avatar">孙</div>
+              <span class="comment-nickname">孙老师摄影</span>
+            </div>
+            <p class="comment-text">47幅全是手机拍的，这期质量不差，有几张光影控制得比相机还好。</p>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">
+              <div class="comment-avatar">吴</div>
+              <span class="comment-nickname">吴阿姨种菜</span>
+            </div>
+            <p class="comment-text">番茄过冬清单里说浇水改3天一次，我试了，土还是湿的，可能我家阳台温度高，得4天。</p>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">
+              <div class="comment-avatar">郑</div>
+              <span class="comment-nickname">郑家小豆</span>
+            </div>
+            <p class="comment-text">摄影展投票那天我出差，能不能提前投？问了一圈没人理。</p>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">
+              <div class="comment-avatar">刘</div>
+              <span class="comment-nickname">刘星夜班</span>
+            </div>
+            <p class="comment-text">10月19号那只猫就是我值班时候找到的，其实它一直在3号楼地下室，监控没拍到入口。</p>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">
+              <div class="comment-avatar">黄</div>
+              <span class="comment-nickname">黄工修修补补</span>
+            </div>
+            <p class="comment-text">藤编花篮挂走廊那事，我觉得不如挂几盆真花，但确实省事，不用浇水。</p>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">
+              <div class="comment-avatar">徐</div>
+              <span class="comment-nickname">徐小满</span>
+            </div>
+            <p class="comment-text">读书会旁听要抢座位，上次提前十分钟到已经没位子了，这次得再早点。</p>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">
+              <div class="comment-avatar">马</div>
+              <span class="comment-nickname">马姐爱拍照</span>
+            </div>
+            <p class="comment-text">“秋天的窗台”这主题我拍了三张，两张猫一张多肉，不知道能不能入围。</p>
+          </div>
+          <div class="comment-card">
+            <div class="comment-user">
+              <div class="comment-avatar">林</div>
+              <span class="comment-nickname">林间散步</span>
+            </div>
+            <p class="comment-text">社区这些活动挺好，就是通知太分散，有时候群里刷屏就错过了。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. 相关资讯 -->
+      <section class="section" id="news">
+        <h2 class="section-title">社区资讯</h2>
+        <div class="news-list">
+          <div class="news-item">
+            <span class="news-date">11月8日</span>
+            <div class="news-content">
+              <h4>摄影展征稿三天收到47幅，活动室将增设临时展架</h4>
+              <p>11月5日启动至8日，作品数量已超上期总投稿的1.2倍。活动室管理方计划在11月14日安装两组临时展架，每组可挂20幅A4尺寸作品。</p>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-date">11月7日</span>
+            <div class="news-content">
+              <h4>旧物交换市集23个摊位确认，瓷器类须附瑕疵照片</h4>
+              <p>报名截止后，组织者张薇在社区群发布摊位分布图。11月市集新增要求：瓷器类物品报名时须上传一张瑕疵位置照片，未上传的摊位将在现场被安排到“瑕疵品专区”。</p>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-date">11月6日</span>
+            <div class="news-content">
+              <h4>藤编工坊第12期作品上传，周敏杯垫厚度2.1毫米</h4>
+              <p>本期共12件杯垫，8件使用紫藤枝条。周敏的作品厚度2.1毫米，为历期最薄。组织者李红在复盘记录中提醒：下期起紫藤枝条需提前泡水2小时，否则易断。</p>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-date">11月3日</span>
+            <div class="news-content">
+              <h4>宠物走失互助群排定11月夜间值班表，每晚2人</h4>
+              <p>值班时间从晚8点到次日早8点，11月共安排60人次。10月试运行期间，夜间消息平均响应时间18分钟，比未排班时的约2小时缩短明显。</p>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-date">10月30日</span>
+            <div class="news-content">
+              <h4>阳台种植组发布番茄过冬清单，7位组员提供实测数据</h4>
+              <p>清单包括保温膜厚度0.08毫米、浇水间隔改为3天、补光灯12瓦LED。组员吴阿姨反馈她家阳台温度偏高，浇水间隔调整为4天，组里建议其他人先按3天试行。</p>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-date">10月28日</span>
+            <div class="news-content">
+              <h4>10月旧物交换复盘：瓷餐具成交率37%，纠纷为零</h4>
+              <p>19件瓷餐具换出7件，成交率较9月下降15个百分点。组织者记录显示，现场纠纷从9月的3起降至0起。有摊主提议下次把瑕疵照片提前发到群里，让交换者提前判断。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10. 相关推荐 -->
+      <section class="section" id="recommend">
+        <h2 class="section-title">相关推荐</h2>
+        <div class="rec-tags">
+          <a class="rec-tag" href="/#featured">藤编花篮第11期作品</a>
+          <a class="rec-tag" href="/#featured">旧物交换瑕疵说明卡模板</a>
+          <a class="rec-tag" href="/#featured">社区花园紫藤修剪时间表</a>
+          <a class="rec-tag" href="/#featured">宠物走失监控调取流程</a>
+          <a class="rec-tag" href="/#featured">手机摄影光影控制技巧</a>
+          <a class="rec-tag" href="/#featured">阳台番茄品种选择对比</a>
+          <a class="rec-tag" href="/#featured">读书会往期书目清单</a>
+          <a class="rec-tag" href="/#featured">活动室场地预约规则</a>
+        </div>
+      </section>
+
+      <!-- 11. 补充板块：热门榜单 -->
+      <section class="section" id="rank">
+        <h2 class="section-title">本月热门条目</h2>
+        <div class="rank-list">
+          <div class="rank-item"><span class="rank-num">1</span><span class="rank-name">“秋天的窗台”摄影展征稿</span><span class="rank-score">热度 631</span></div>
+          <div class="rank-item"><span class="rank-num">2</span><span class="rank-name">11月旧物交换市集摊主名单</span><span class="rank-score">热度 516</span></div>
+          <div class="rank-item"><span class="rank-num">3</span><span class="rank-name">阳台番茄过冬清单</span><span class="rank-score">热度 445</span></div>
+          <div class="rank-item"><span class="rank-num">4</span><span class="rank-name">藤编杯垫第12期作品合集</span><span class="rank-score">热度 382</span></div>
+          <div class="rank-item"><span class="rank-num">5</span><span class="rank-name">10月宠物走失互助记录</span><span class="rank-score">热度 274</span></div>
+        </div>
+      </section>
+
+      <!-- 12. 投稿与互动 -->
+      <section class="section" id="submit">
+        <h2 class="section-title">投稿与互动</h2>
+        <div style="background: var(--surface); border-radius: var(--radius-card); padding: 24px; box-shadow: var(--shadow-default);">
+          <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:16px;">如果你有藤编作品、旧物交换物品、宠物日常照片或社区活动建议，可以通过以下方式参与。所有的投稿会由对应板块的组织者查看，并在3个工作日内回复。</p>
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <button class="btn-small">上传作品照片</button>
+            <button class="btn-small">提交活动建议</button>
+            <button class="btn-small">报名志愿者</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 右侧辅助栏 -->
+    <aside class="right-sidebar" aria-label="辅助信息">
+      <div class="sidebar-card">
+        <div class="sidebar-title">热门条目</div>
+        <div class="hot-list">
+          <div class="hot-item"><span class="hot-index">1</span><span class="hot-name">摄影展“秋天的窗台”</span><span class="hot-heat">631</span></div>
+          <div class="hot-item"><span class="hot-index">2</span><span class="hot-name">旧物交换摊主名单</span><span class="hot-heat">516</span></div>
+          <div class="hot-item"><span class="hot-index">3</span><span class="hot-name">番茄过冬清单</span><span class="hot-heat">445</span></div>
+          <div class="hot-item"><span class="hot-index">4</span><span class="hot-name">藤编杯垫第12期</span><span class="hot-heat">382</span></div>
+          <div class="hot-item"><span class="hot-index">5</span><span class="hot-name">宠物走失互助记录</span><span class="hot-heat">274</span></div>
+        </div>
+      </div>
+      <div class="submit-card">
+        <h4>投稿通道</h4>
+        <p>藤编作品、旧物照片、社区活动建议均可提交。审核后展示在对应板块。</p>
+        <button class="btn-small">我要投稿</button>
+      </div>
+      <div class="sidebar-card">
+        <div class="sidebar-title">活动日历</div>
+        <div style="font-size:0.82rem; color:var(--text-secondary); display:flex; flex-direction:column; gap:10px;">
+          <div><strong>11月15日</strong> 摄影展现场投票</div>
+          <div><strong>11月16日</strong> 读书会线下讨论</div>
+          <div><strong>11月22日</strong> 旧物交换市集</div>
+          <div><strong>11月29日</strong> 藤编工坊第13期</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- 页脚 -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h3>紫藤家园sp</h3>
+        <p>记录社区里真实的手作、交换与日常。内容覆盖2024年3月至今的藤编工坊作品、旧物交换规则演变、宠物互助记录与摄影展投稿。每月更新活动复盘与下一期预告。</p>
+      </div>
+      <div class="footer-group">
+        <h4>内容分类</h4>
+        <a href="/#featured">藤编工坊</a>
+        <a href="/#featured">旧物交换</a>
+        <a href="/#featured">宠物日常</a>
+        <a href="/#featured">社区摄影</a>
+        <a href="/#featured">阳台种植</a>
+      </div>
+      <div class="footer-group">
+        <h4>参与</h4>
+        <a href="/#submit">投稿作品</a>
+        <a href="/#submit">活动建议</a>
+        <a href="/#submit">志愿者报名</a>
+        <a href="/#rank">热门榜单</a>
+      </div>
+      <div class="footer-group">
+        <h4>关于</h4>
+        <a href="/#overview">社区概览</a>
+        <a href="/#guide">参与指南</a>
+        <a href="/#faq">常见问答</a>
+        <a href="/#news">社区资讯</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 紫藤家园sp · 社区内容示例页面</span>
+      <span>最近更新：2026年11月8日 · 对应条目：摄影展征稿47幅、藤编第12期作品、旧物交换报名截止</span>
+    </div>
+  </footer>
+
+  <!-- 回到顶部按钮 -->
+  <button class="back-to-top" id="backToTop" aria-label="回到顶部">↑</button>
+
+  <script>
+    (function() {
+      // 移动端菜单
+      const hamburger = document.querySelector('.hamburger');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const overlay = document.getElementById('mobile-overlay');
+      const closeBtn = document.querySelector('.mobile-menu .close-btn');
+      const mobileLinks = document.querySelectorAll('.mobile-menu .nav-link');
+
+      function openMenu() {
+        mobileMenu.classList.add('open');
+        overlay.classList.add('active');
+        hamburger.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeMenu() {
+        mobileMenu.classList.remove('open');
+        overlay.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+
+      hamburger.addEventListener('click', openMenu);
+      closeBtn.addEventListener('click', closeMenu);
+      overlay.addEventListener('click', closeMenu);
+      mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+          closeMenu();
+        }
+      });
+
+      // 回到顶部
+      const backBtn = document.getElementById('backToTop');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > window.innerHeight) {
+          backBtn.classList.add('visible');
+        } else {
+          backBtn.classList.remove('visible');
+        }
+      });
+      backBtn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // 左频道高亮（简单实现：滚动监听）
+      const channelLinks = document.querySelectorAll('.left-sidebar .channel-link');
+      const sections = document.querySelectorAll('.section[id]');
+      if (channelLinks.length && sections.length) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              channelLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '/' + '#' + entry.target.id) {
+                  link.classList.add('active');
+                }
+              });
+            }
+          });
+        }, { rootMargin: '-30% 0px -60% 0px' });
+        sections.forEach(section => observer.observe(section));
+      }
+    })();
+  </script>
+
+  <!-- 结构化数据 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "紫藤家园sp",
+    "description": "紫藤家园sp 汇聚社区生活记录与同好交流内容，涵盖邻里活动、手作工坊、宠物日常、闲置交换、摄影作品与活动报名。",
+    "inLanguage": "zh-CN"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "藤编工坊需要自带材料吗？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "不需要。第12期使用的紫藤枝条由社区花园统一修剪提供。参与者只需自带一把剪刀和一块垫布。如果不想用公共材料，也可以自带旧藤椅拆解条，但需要在报名时备注，方便组织者调整材料准备量。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "旧物交换市集的“物品状况说明卡”要写什么？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "写三项内容：使用年限、瑕疵位置、是否可清洗。10月市集有居民因为没写磕碰位置，换出后又被退回，现场协调花了20分钟。说明卡在报名时领取，也可以自己手写。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "社区摄影展的投票规则是什么？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "11月15日在活动室大厅现场投票，每人3票，得票最高的3幅作品印成明信片。同时社区群会发起接龙投票，接龙票数与现场票数相加。第3期有效票数89票，现场票和接龙票大约各占一半。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "宠物走失后第一时间应该做什么？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "先在社区宠物群发消息，附照片和走失时间地点；同时联系物业调取花园监控，物业值班电话在每栋单元门公告栏。10月三起案例中，消息发出后5分钟内就有人回应的有两起，第三起发生在深夜，由夜间值班人员处理。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "阳台番茄过冬需要买补光灯吗？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "社区种植组的建议是12瓦LED补光灯即可，不需要专业植物灯。10月28日的清单里，7位组员中有5位使用12瓦LED，2位使用15瓦，实际效果差别不大。更关键的是夜间保温膜厚度，建议0.08毫米。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "读书会的线下讨论可以旁听吗？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "可以。11月16日下午2点在活动室203，旁听不需要报名，但座位有限，正式报名者优先。领读人陈岚会在讨论前10分钟发一份单页提纲，包含6个问题。旁听者可以在最后20分钟参与发言。"
+        }
+      }
+    ]
+  }
+  </script>
+</body>
+  </html>
