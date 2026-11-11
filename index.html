@@ -1,0 +1,1035 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jizz日本版jlzz&src=tab_video - 日本影像内容聚合与条目导航</title>
+<meta name="description" content="jizz日本版jlzz&src=tab_video 汇聚日本影像作品的条目索引、类型分类与更新动态，涵盖番号整理、系列合集、制作方档案、评分口碑与观看路径判断，适合按类型与制作方检索内容的观众查阅。">
+<meta name="keywords" content="jizz日本版jlzz&src=tab_video">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b1d2b'/%3E%3Cpath d='M18 44V20h7v9h14v-9h7v24h-7v-9H25v9z' fill='%23e8b44a'/%3E%3C/svg%3E">
+<style>
+:root{
+  --brand:#c0392b;
+  --brand-light:#e05a4a;
+  --brand-dark:#8e2a1f;
+  --bg:#f6f4f1;
+  --panel:#ffffff;
+  --ink:#1b1d2b;
+  --ink-2:#4a4d5e;
+  --ink-3:#868a9c;
+  --line:#e3dfd9;
+  --radius-card:12px;
+  --radius-btn:8px;
+  --radius-tag:999px;
+  --shadow:0 2px 8px rgba(27,29,43,.06);
+  --shadow-hover:0 8px 22px rgba(27,29,43,.12);
+  --gap:20px;
+  --font:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:118px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{margin:0;line-height:1.35;font-weight:700}
+p{margin:0 0 12px}
+ul,ol{margin:0 0 12px;padding-left:1.2em}
+li{margin-bottom:6px}
+img{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer}
+
+/* ---------- 吸顶公告条 + 页头 ---------- */
+.sticky-top{position:sticky;top:0;z-index:60}
+.notice-bar{background:var(--ink);color:#efe9e2;font-size:13px;overflow:hidden}
+.notice-inner{max-width:1340px;margin:0 auto;padding:7px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.notice-brand{color:var(--brand-light);font-weight:700;letter-spacing:.5px;white-space:nowrap}
+.notice-item{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.notice-item time{color:#b9b2a8;font-variant-numeric:tabular-nums}
+.notice-dot{width:5px;height:5px;border-radius:50%;background:var(--brand-light);flex:none}
+
+.site-header{background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.header-inner{max-width:1340px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:22px;min-height:64px}
+.brand{display:flex;align-items:center;gap:10px;flex:none}
+.brand-mark{width:36px;height:36px;flex:none}
+.brand-text{font-size:16px;font-weight:800;letter-spacing:.2px;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.main-nav{display:flex;gap:4px;flex:1;overflow-x:auto;scrollbar-width:none}
+.main-nav::-webkit-scrollbar{display:none}
+.main-nav a{padding:7px 11px;border-radius:var(--radius-btn);font-size:14px;color:var(--ink-2);white-space:nowrap;transition:background .15s,color .15s}
+.main-nav a:hover,.main-nav a:focus-visible{background:#f1ece6;color:var(--brand-dark)}
+.header-tools{display:flex;align-items:center;gap:10px;flex:none}
+.search-box{display:flex;align-items:center;background:#f3f0ec;border:1px solid var(--line);border-radius:var(--radius-btn);padding:0 4px 0 10px;height:34px}
+.search-box input{border:0;background:transparent;outline:none;width:130px;font-size:13px;color:var(--ink)}
+.search-box button{border:0;background:var(--brand);color:#fff;border-radius:6px;height:26px;padding:0 10px;font-size:12px}
+.search-box button:hover{background:var(--brand-dark)}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;height:34px;padding:0 14px;border-radius:var(--radius-btn);border:1px solid var(--brand);color:var(--brand-dark);font-size:13px;font-weight:600;background:#fff;transition:background .15s}
+.btn-ghost:hover{background:#fdf0ee}
+.hamburger{display:none;width:36px;height:36px;border:1px solid var(--line);border-radius:8px;background:#fff;align-items:center;justify-content:center;flex-direction:column;gap:4px}
+.hamburger span{display:block;width:16px;height:2px;background:var(--ink-2);border-radius:2px}
+.mobile-menu{display:none;border-top:1px solid var(--line);background:#fff}
+.mobile-menu.open{display:block}
+.mobile-menu .mm-search{padding:12px 20px;display:flex;gap:8px}
+.mobile-menu .mm-search input{flex:1;height:36px;border:1px solid var(--line);border-radius:8px;padding:0 10px;font-size:14px;background:#faf8f5}
+.mobile-menu .mm-search button{height:36px;padding:0 14px;border:0;border-radius:8px;background:var(--brand);color:#fff;font-size:14px}
+.mobile-menu ul{list-style:none;margin:0;padding:0 8px 12px}
+.mobile-menu li a{display:block;padding:11px 12px;border-radius:8px;font-size:15px;color:var(--ink-2)}
+.mobile-menu li a:hover{background:#f4f0eb}
+.mask{position:fixed;inset:0;background:rgba(20,20,28,.45);z-index:55;display:none}
+.mask.show{display:block}
+
+/* ---------- 容器 ---------- */
+.wrap{max-width:1340px;margin:0 auto;padding:0 20px}
+.layout{display:grid;grid-template-columns:178px minmax(0,1fr) 262px;gap:26px;align-items:start;padding:26px 0 10px}
+.rail-left{position:sticky;top:118px}
+.channel-box{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-card);padding:12px;box-shadow:var(--shadow)}
+.channel-box h3{font-size:12px;letter-spacing:1.2px;color:var(--ink-3);text-transform:uppercase;margin:2px 6px 10px}
+.channel-list{list-style:none;margin:0;padding:0}
+.channel-list li{margin:0}
+.channel-list a{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:7px 8px;border-radius:7px;font-size:13.5px;color:var(--ink-2);transition:background .15s,color .15s}
+.channel-list a:hover,.channel-list a:focus-visible{background:#f6efea;color:var(--brand-dark)}
+.channel-list a span{font-size:11px;color:var(--ink-3)}
+.rail-note{margin-top:14px;background:linear-gradient(160deg,#fff6ee,#fdece8);border:1px solid #f2d6ce;border-radius:var(--radius-card);padding:14px;font-size:12.5px;color:#7a4a3c;line-height:1.7}
+.rail-note b{display:block;color:var(--brand-dark);font-size:13px;margin-bottom:4px}
+
+/* ---------- 首屏 ---------- */
+.hero{position:relative;overflow:hidden;border-radius:16px;background:linear-gradient(135deg,#1b1d2b 0%,#2d2140 55%,#5a2233 100%);color:#f3ede7;padding:38px 34px 34px;margin-bottom:28px}
+.hero::after{content:"";position:absolute;right:-90px;top:-90px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(232,180,74,.42),rgba(232,180,74,0) 68%);pointer-events:none}
+.hero-inner{position:relative;z-index:2;max-width:660px}
+.hero-kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:1.6px;color:#e8b44a;text-transform:uppercase;margin-bottom:14px}
+.hero-kicker i{width:22px;height:1px;background:#e8b44a;display:inline-block}
+.hero h1{font-size:30px;letter-spacing:.4px;word-break:break-word;margin-bottom:12px}
+.hero-desc{font-size:14.5px;color:#cfc6bd;line-height:1.8;margin-bottom:20px;max-width:560px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}
+.hero-actions a{display:inline-flex;align-items:center;height:38px;padding:0 18px;border-radius:var(--radius-btn);font-size:14px;font-weight:600}
+.hero-actions .primary{background:#e8b44a;color:#241a10}
+.hero-actions .primary:hover{background:#f2c463}
+.hero-actions .secondary{border:1px solid rgba(243,237,231,.35);color:#f3ede7}
+.hero-actions .secondary:hover{background:rgba(243,237,231,.1)}
+.hero-stats{display:flex;gap:26px;flex-wrap:wrap;border-top:1px solid rgba(243,237,231,.16);padding-top:16px}
+.hero-stats div{font-size:12px;color:#b5aca3}
+.hero-stats strong{display:block;font-size:19px;color:#f3ede7;font-variant-numeric:tabular-nums;margin-bottom:2px}
+.hero-art{position:absolute;right:24px;bottom:-10px;width:250px;opacity:.9;pointer-events:none}
+@media(max-width:900px){.hero-art{display:none}}
+
+/* ---------- 区块通用 ---------- */
+.section{margin-bottom:34px}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+.sec-head h2{font-size:19px;letter-spacing:.2px}
+.sec-head h2::before{content:"";display:inline-block;width:4px;height:16px;background:var(--brand);border-radius:2px;margin-right:9px;vertical-align:-2px}
+.sec-sub{font-size:12.5px;color:var(--ink-3)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-card);box-shadow:var(--shadow)}
+
+/* 概览 */
+.overview{padding:20px 22px;font-size:14.5px;color:var(--ink-2)}
+.overview p{margin-bottom:11px}
+.overview p:last-child{margin-bottom:0}
+.overview strong{color:var(--ink)}
+
+/* 卡片网格 */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-card);overflow:hidden;box-shadow:var(--shadow);transition:transform .18s,box-shadow .18s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
+.card-thumb{position:relative;aspect-ratio:4/3;background:#ece7e1}
+.card-thumb img{width:100%;height:100%;object-fit:cover}
+.card-type{position:absolute;left:10px;top:10px;background:rgba(27,29,43,.82);color:#fff;font-size:11px;padding:3px 9px;border-radius:var(--radius-tag);letter-spacing:.3px}
+.card-body{padding:13px 14px 14px;display:flex;flex-direction:column;flex:1}
+.card-body h3{font-size:15px;margin-bottom:7px;line-height:1.45}
+.card-body h3 a:hover{color:var(--brand)}
+.card-desc{font-size:13px;color:var(--ink-2);line-height:1.65;margin-bottom:10px;flex:1}
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.tag{font-size:11px;padding:2px 8px;border-radius:var(--radius-tag);background:#f3efe9;color:#6d6357;white-space:nowrap}
+.card-meta{display:flex;align-items:center;justify-content:space-between;font-size:11.5px;color:var(--ink-3);border-top:1px dashed var(--line);padding-top:9px}
+.card-meta b{color:var(--brand-dark);font-variant-numeric:tabular-nums}
+
+/* 更新列表 */
+.update-list{list-style:none;margin:0;padding:6px 4px}
+.update-list li{display:flex;gap:12px;padding:11px 14px;border-bottom:1px solid #f1ede7;align-items:flex-start}
+.update-list li:last-child{border-bottom:0}
+.update-list li:hover{background:#fbf8f4}
+.up-time{flex:none;width:64px;font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums;padding-top:2px}
+.up-main{min-width:0}
+.up-main a{font-size:14px;font-weight:600;color:var(--ink)}
+.up-main a:hover{color:var(--brand)}
+.up-main p{font-size:12.5px;color:var(--ink-2);margin:2px 0 0;line-height:1.6}
+
+/* 分类入口 */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.cat-item{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 14px 13px;transition:border-color .15s,background .15s,transform .15s}
+.cat-item:hover{border-color:#e5b8ae;background:#fffaf7;transform:translateY(-2px)}
+.cat-item b{display:block;font-size:14.5px;margin-bottom:3px}
+.cat-item small{font-size:12px;color:var(--ink-3);line-height:1.55;display:block}
+
+/* 深度解析 */
+.deep{padding:24px 26px}
+.deep h2{font-size:20px;margin-bottom:16px}
+.deep h3{font-size:16px;margin:22px 0 9px;color:var(--brand-dark)}
+.deep h3:first-of-type{margin-top:8px}
+.deep p{font-size:14.5px;color:var(--ink-2);line-height:1.85}
+.deep ul{padding-left:1.3em;font-size:14.5px;color:var(--ink-2)}
+.deep li{margin-bottom:7px}
+.deep .quote{background:#faf6f1;border-left:3px solid var(--brand);padding:12px 16px;border-radius:0 8px 8px 0;font-size:14px;color:#5c4a3f;margin:14px 0}
+.compare{width:100%;border-collapse:collapse;font-size:13.5px;margin:12px 0 16px}
+.compare th,.compare td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+.compare th{background:#f7f2ec;font-weight:600;color:var(--ink)}
+.compare td{color:var(--ink-2)}
+
+/* 指南步骤 */
+.guide{padding:22px 24px}
+.steps{list-style:none;margin:0;padding:0;counter-reset:step}
+.steps li{position:relative;padding:0 0 18px 44px;counter-increment:step}
+.steps li::before{content:counter(step);position:absolute;left:0;top:1px;width:28px;height:28px;border-radius:50%;background:#fdece8;color:var(--brand-dark);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.steps li:not(:last-child)::after{content:"";position:absolute;left:13.5px;top:32px;bottom:2px;width:1px;background:var(--line)}
+.steps b{display:block;font-size:14.5px;margin-bottom:3px}
+.steps p{font-size:13.5px;color:var(--ink-2);margin:0}
+
+/* FAQ */
+.faq details{border:1px solid var(--line);border-radius:10px;background:var(--panel);margin-bottom:10px;overflow:hidden}
+.faq summary{padding:13px 16px;font-size:14.5px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:18px;color:var(--brand);flex:none;font-weight:400}
+.faq details[open] summary::after{content:"–"}
+.faq details[open] summary{background:#fcf8f4}
+.faq .ans{padding:0 16px 14px;font-size:14px;color:var(--ink-2);line-height:1.8}
+
+/* 评论 */
+.comment-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.comment{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px 15px}
+.comment-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.avatar{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex:none}
+.c-name{font-size:13px;font-weight:600}
+.c-time{font-size:11px;color:var(--ink-3);margin-left:auto;font-variant-numeric:tabular-nums}
+.comment p{font-size:13px;color:var(--ink-2);margin:0;line-height:1.7}
+
+/* 资讯 */
+.news-list{display:grid;gap:12px}
+.news-item{display:grid;grid-template-columns:120px 1fr;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;transition:box-shadow .15s}
+.news-item:hover{box-shadow:var(--shadow-hover)}
+.news-item img{width:120px;height:100%;min-height:88px;object-fit:cover}
+.news-body{padding:11px 14px 12px 0}
+.news-body h3{font-size:14.5px;margin-bottom:4px}
+.news-body h3 a:hover{color:var(--brand)}
+.news-meta{font-size:11.5px;color:var(--ink-3);margin-bottom:4px;font-variant-numeric:tabular-nums}
+.news-body p{font-size:12.8px;color:var(--ink-2);margin:0;line-height:1.65}
+
+/* 推荐标签 */
+.rec-tags{display:flex;flex-wrap:wrap;gap:9px}
+.rec-tags a{font-size:13px;padding:7px 13px;border-radius:var(--radius-tag);background:var(--panel);border:1px solid var(--line);color:var(--ink-2);transition:all .15s}
+.rec-tags a:hover{border-color:var(--brand-light);color:var(--brand-dark);background:#fff8f6}
+
+/* 榜单 */
+.rank-list{list-style:none;margin:0;padding:6px 4px;counter-reset:rank}
+.rank-list li{display:flex;gap:12px;align-items:center;padding:10px 14px;border-bottom:1px solid #f1ede7;counter-increment:rank}
+.rank-list li:last-child{border-bottom:0}
+.rank-list li::before{content:counter(rank);width:22px;height:22px;border-radius:6px;background:#f3efe9;color:#7a6c5c;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+.rank-list li:nth-child(-n+3)::before{background:var(--brand);color:#fff}
+.rank-list a{font-size:13.8px;font-weight:600;flex:1;min-width:0}
+.rank-list a:hover{color:var(--brand)}
+.rank-list em{font-style:normal;font-size:11.5px;color:var(--ink-3);flex:none;font-variant-numeric:tabular-nums}
+
+/* 投稿互动 */
+.submit-band{background:linear-gradient(120deg,#2d2140,#5a2233);color:#f1e9e2;border-radius:14px;padding:24px 26px;display:flex;gap:22px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.submit-band h2{font-size:18px;margin-bottom:6px}
+.submit-band p{font-size:13.5px;color:#c8bdb3;margin:0;max-width:640px}
+.submit-band a{background:#e8b44a;color:#241a10;height:38px;padding:0 20px;border-radius:var(--radius-btn);display:inline-flex;align-items:center;font-size:14px;font-weight:600;flex:none}
+.submit-band a:hover{background:#f2c463}
+
+/* 右侧栏 */
+.rail-right{display:grid;gap:18px;position:sticky;top:118px}
+.side-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-card);box-shadow:var(--shadow);overflow:hidden}
+.side-card h3{font-size:14px;padding:13px 15px 10px;border-bottom:1px solid #f1ede7}
+.side-list{list-style:none;margin:0;padding:6px 6px 10px}
+.side-list li a{display:block;padding:7px 9px;border-radius:7px;font-size:13px;color:var(--ink-2)}
+.side-list li a:hover{background:#f7f2ec;color:var(--brand-dark)}
+.side-list li a small{display:block;font-size:11px;color:var(--ink-3);margin-top:1px}
+.side-timeline{list-style:none;margin:0;padding:10px 15px 14px;border-left:2px solid #f0e2d6;margin-left:18px}
+.side-timeline li{position:relative;padding-bottom:12px;font-size:12.5px;color:var(--ink-2)}
+.side-timeline li::before{content:"";position:absolute;left:-21px;top:6px;width:7px;height:7px;border-radius:50%;background:var(--brand-light)}
+.side-timeline b{display:block;font-size:12.5px;color:var(--ink)}
+.side-timeline time{font-size:11px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+
+.no-result{padding:18px;font-size:14px;color:var(--ink-3);text-align:center;display:none}
+.no-result.show{display:block}
+
+/* 页脚 */
+.site-footer{background:#1b1d2b;color:#a9a399;margin-top:20px;padding:38px 0 26px;font-size:13.5px}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:26px;margin-bottom:26px}
+.footer-grid h4{color:#f0eae2;font-size:14px;margin-bottom:10px}
+.footer-brand{display:flex;align-items:center;gap:9px;margin-bottom:10px}
+.footer-brand .brand-text{color:#f0eae2;font-size:15px}
+.footer-desc{line-height:1.8;color:#8e887f}
+.footer-links{list-style:none;margin:0;padding:0}
+.footer-links li{margin-bottom:7px}
+.footer-links a{color:#a9a399;font-size:13px}
+.footer-links a:hover{color:#e8b44a}
+.footer-bottom{border-top:1px solid #2e3040;padding-top:16px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:12px;color:#7b766e}
+
+/* 回到顶部 */
+.to-top{position:fixed;right:20px;bottom:24px;width:42px;height:42px;border-radius:50%;border:0;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(192,57,43,.35);opacity:0;visibility:hidden;transform:translateY(8px);transition:all .2s;z-index:50;font-size:17px}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+.to-top:hover{background:var(--brand-dark)}
+
+/* 响应式 */
+@media(max-width:1180px){
+  .layout{grid-template-columns:170px minmax(0,1fr);}
+  .rail-right{grid-column:1/-1;position:static;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));display:grid}
+}
+@media(max-width:1024px){
+  .main-nav{display:none}
+  .hamburger{display:flex}
+  .layout{grid-template-columns:1fr;}
+  .rail-left{position:static;display:none}
+  .rail-right{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+  .hero h1{font-size:26px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:740px){
+  .header-inner{gap:12px}
+  .search-box{display:none}
+  .header-tools .btn-ghost{display:none}
+  .hero{padding:26px 20px 24px}
+  .hero h1{font-size:22px}
+  .hero-stats{gap:18px}
+  .layout{padding-top:18px;gap:20px}
+  .news-item{grid-template-columns:96px 1fr}
+  .news-item img{width:96px;min-height:80px}
+  .card-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .cat-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:18px}
+  .deep,.guide,.overview{padding:18px 16px}
+  .submit-band{padding:20px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<!-- 吸顶公告条 + 页头 -->
+<div class="sticky-top">
+  <div class="notice-bar" aria-label="更新公告">
+    <div class="notice-inner">
+      <span class="notice-brand">jizz日本版jlzz&src=tab_video</span>
+      <span class="notice-item"><span class="notice-dot"></span><time datetime="2026-11-08">11-08</time> 新增「东京深夜剧场 第14弹」条目</span>
+      <span class="notice-item"><span class="notice-dot"></span>本周收录 <b>46</b> 部新作、<b>9</b> 个系列合集</span>
+      <span class="notice-item"><span class="notice-dot"></span><time datetime="2026-11-07">11-07</time> 制作方「黑潮映像」档案补全</span>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/#top" aria-label="返回首页顶部">
+        <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="#1b1d2b"/>
+          <path d="M18 44V20h7v9h14v-9h7v24h-7v-9H25v9z" fill="#e8b44a"/>
+          <circle cx="46" cy="20" r="4" fill="#c0392b"/>
+        </svg>
+        <span class="brand-text">jizz日本版jlzz&src=tab_video</span>
+      </a>
+      <nav class="main-nav" aria-label="主题导航">
+        <a href="/#overview">领域概览</a>
+        <a href="/#picks">精选条目</a>
+        <a href="/#updates">更新动态</a>
+        <a href="/#cats">分类</a>
+        <a href="/#deep">深度解析</a>
+        <a href="/#guide">观看路径</a>
+        <a href="/#faq">问答</a>
+        <a href="/#comments">评论</a>
+        <a href="/#news">资讯</a>
+        <a href="/#rank">榜单</a>
+      </nav>
+      <div class="header-tools">
+        <div class="search-box">
+          <input id="searchInput" type="search" placeholder="搜索条目 / 制作方" aria-label="站内搜索">
+          <button id="searchBtn" type="button">查找</button>
+        </div>
+        <a class="btn-ghost" href="/#submit">投稿</a>
+        <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false" aria-controls="mobileMenu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mm-search">
+        <input id="mSearchInput" type="search" placeholder="搜索条目 / 制作方" aria-label="移动端站内搜索">
+        <button id="mSearchBtn" type="button">查找</button>
+      </div>
+      <ul>
+        <li><a href="/#overview">领域概览</a></li>
+        <li><a href="/#picks">精选条目</a></li>
+        <li><a href="/#updates">更新动态</a></li>
+        <li><a href="/#cats">分类</a></li>
+        <li><a href="/#deep">深度解析</a></li>
+        <li><a href="/#guide">观看路径</a></li>
+        <li><a href="/#faq">问答</a></li>
+        <li><a href="/#comments">评论</a></li>
+        <li><a href="/#news">资讯</a></li>
+        <li><a href="/#rank">榜单</a></li>
+        <li><a href="/#submit">投稿与互动</a></li>
+      </ul>
+    </div>
+  </header>
+</div>
+<div class="mask" id="mask"></div>
+
+<div class="wrap" id="top">
+  <div class="layout">
+
+    <!-- 左频道索引 -->
+    <aside class="rail-left" aria-label="频道索引">
+      <div class="channel-box">
+        <h3>频道索引</h3>
+        <ul class="channel-list">
+          <li><a href="/#overview">领域概览</a></li>
+          <li><a href="/#picks">精选条目</a></li>
+          <li><a href="/#updates">更新动态</a></li>
+          <li><a href="/#cats">分类入口</a></li>
+          <li><a href="/#deep">深度解析</a></li>
+          <li><a href="/#guide">观看路径</a></li>
+          <li><a href="/#faq">常见问答</a></li>
+          <li><a href="/#comments">用户评论</a></li>
+          <li><a href="/#news">相关资讯</a></li>
+          <li><a href="/#rec">相关推荐</a></li>
+          <li><a href="/#rank">热度榜单</a></li>
+          <li><a href="/#submit">投稿互动</a></li>
+        </ul>
+      </div>
+      <div class="rail-note">
+        <b>本周收录口径</b>
+        2026-10-10 至 2026-11-08 期间上架的条目，含单体作品与系列合集，按制作方公开信息与站内条目记录统计。
+      </div>
+    </aside>
+
+    <!-- 主内容 -->
+    <main>
+
+      <!-- 首屏 -->
+      <section class="hero" aria-labelledby="heroTitle">
+        <svg class="hero-art" viewBox="0 0 260 200" aria-hidden="true">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#e8b44a" stop-opacity=".55"/>
+              <stop offset="1" stop-color="#c0392b" stop-opacity=".12"/>
+            </linearGradient>
+          </defs>
+          <rect x="10" y="26" width="150" height="96" rx="8" fill="url(#g1)" stroke="#e8b44a" stroke-opacity=".5"/>
+          <rect x="26" y="44" width="60" height="6" rx="3" fill="#f3ede7" opacity=".55"/>
+          <rect x="26" y="58" width="96" height="4" rx="2" fill="#f3ede7" opacity=".3"/>
+          <rect x="26" y="68" width="78" height="4" rx="2" fill="#f3ede7" opacity=".22"/>
+          <circle cx="196" cy="52" r="24" fill="none" stroke="#e8b44a" stroke-opacity=".6" stroke-width="1.4"/>
+          <circle cx="196" cy="52" r="9" fill="#e8b44a" opacity=".5"/>
+          <rect x="96" y="120" width="140" height="58" rx="8" fill="none" stroke="#f3ede7" stroke-opacity=".25"/>
+          <rect x="112" y="136" width="52" height="5" rx="2.5" fill="#f3ede7" opacity=".4"/>
+          <rect x="112" y="149" width="94" height="4" rx="2" fill="#f3ede7" opacity=".2"/>
+          <path d="M182 158l14-16 14 16" fill="none" stroke="#c0392b" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <div class="hero-inner">
+          <div class="hero-kicker"><i></i>日本影像条目索引</div>
+          <h1 id="heroTitle">jizz日本版jlzz&src=tab_video</h1>
+          <p class="hero-desc">按番号、系列、制作方三条线索整理的日本影像作品目录。收录单体作品、长篇合集与专题企划，每个条目附类型标签、发行时间与站内评分，方便比对同一系列的不同批次与不同制作方之间的风格差异。</p>
+          <div class="hero-actions">
+            <a class="primary" href="/#picks">浏览精选条目</a>
+            <a class="secondary" href="/#cats">按分类筛选</a>
+          </div>
+          <div class="hero-stats">
+            <div><strong>1,284</strong>收录条目</div>
+            <div><strong>46</strong>本周新增</div>
+            <div><strong>312</strong>制作方档案</div>
+            <div><strong>11-08</strong>最近更新</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1 领域概览 -->
+      <section class="section" id="overview">
+        <div class="sec-head">
+          <h2>日本影像作品的内容构成与当前看点</h2>
+        </div>
+        <div class="panel overview">
+          <p>日本影像作品按发行形态大致分四类：<strong>单体新作</strong>、<strong>系列合集</strong>、<strong>厂牌企划专题</strong>和<strong>纪念复刻</strong>。单体新作通常按番号逐月发行，制作周期短，类型标签集中；系列合集把同一主题下若干期内容重新打包，篇幅长但内容重合度高；厂牌企划专题围绕某个场景或人物展开，往往不按番号序列发行；纪念复刻是旧作在画质或剪辑上重新处理后的版本，条目信息需要与原始发行区分开。</p>
+          <p>2026 年秋季的条目结构有明显变化。黑潮映像在 9 月启动「东京深夜剧场」企划，目前已出到第 14 弹，每弹固定 4 个场景段落，节奏比其旧作慢；SILK ROAD 厂牌把 2023 年的三部中篇重新剪成 108 分钟合集，10 月 22 日上架，条目页标注了「重制版」与原始版本的区别。这两类条目在检索时容易混淆，需要看发行形态标签而不是只看番号前缀。</p>
+          <p>评分维度上，站内采用三项分离记录：画面制作（灯光、场景调度）、内容密度（有效段落时长占比）、系列一致性（与同系列前作的连贯度）。三项分开打分后，同一部作品在不同维度上的差距会明显暴露——比如 10 月 30 日上架的一部高热度新作，画面制作 8.6 分，内容密度只有 5.9 分，前 20 分钟铺垫过长，属于典型的「视觉先行、内容后置」。</p>
+          <p>值得关注的方向还包括关西地区小型制作方的独立发行。这类条目单月产量低，但单部时长普遍在 90 分钟以上，场景复用率低。11 月第一周收录的 6 部关西独立发行中，有 4 部是制作方直接上架，没有经过中间发行商，条目信息里能看到原始发行日期与制作方编号。</p>
+        </div>
+      </section>
+
+      <!-- 2 精选内容推荐 -->
+      <section class="section" id="picks">
+        <div class="sec-head">
+          <h2>精选条目推荐</h2>
+          <span class="sec-sub">按近期评分与制作方活跃度筛选</span>
+        </div>
+        <div class="card-grid" id="pickGrid">
+          <article class="card">
+            <div class="card-thumb">
+              <img src="https://picsum.photos/seed/jp-tokyo14/400/300" width="400" height="300" loading="lazy" alt="东京深夜剧场第14弹场景截图">
+              <span class="card-type">系列合集</span>
+            </div>
+            <div class="card-body">
+              <h3><a href="/#updates">东京深夜剧场 第14弹</a></h3>
+              <div class="tag-row"><span class="tag">黑潮映像</span><span class="tag">都市夜景</span><span class="tag">4段落</span></div>
+              <p class="card-desc">第14弹把场景从新宿移到台东区，四段内容共用一条夜间动线，镜头调度比前作紧凑，第3段有一段7分钟的长镜头。</p>
+              <div class="card-meta"><span>评分 <b>8.4</b></span><span>11-06 更新</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-thumb">
+              <img src="https://picsum.photos/seed/jp-silkroad/400/300" width="400" height="300" loading="lazy" alt="SILK ROAD 重制合集封面">
+              <span class="card-type">纪念复刻</span>
+            </div>
+            <div class="card-body">
+              <h3><a href="/#news">SILK ROAD 2023 三部中篇重制合集</a></h3>
+              <div class="tag-row"><span class="tag">重制版</span><span class="tag">108分钟</span><span class="tag">画质修复</span></div>
+              <p class="card-desc">把 2023 年三部中篇按时间顺序重剪，新增片头说明与制作方访谈片段，原始版本的三段结尾被替换为统一收束。</p>
+              <div class="card-meta"><span>评分 <b>8.1</b></span><span>10-22 上架</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-thumb">
+              <img src="https://picsum.photos/seed/jp-kansai6/400/300" width="400" height="300" loading="lazy" alt="关西独立发行第六辑场景">
+              <span class="card-type">单体新作</span>
+            </div>
+            <div class="card-body">
+              <h3><a href="/#updates">关西独立发行 第6辑</a></h3>
+              <div class="tag-row"><span class="tag">直接上架</span><span class="tag">96分钟</span><span class="tag">低场景复用</span></div>
+              <p class="card-desc">制作方自行发行，没有中间发行商编号，单部时长 96 分钟，四个场景全部实景拍摄，复用率是同类里最低的一档。</p>
+              <div class="card-meta"><span>评分 <b>7.9</b></span><span>11-04 更新</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-thumb">
+              <img src="https://picsum.photos/seed/jp-yokohama/400/300" width="400" height="300" loading="lazy" alt="横滨港区企划专题画面">
+              <span class="card-type">厂牌企划</span>
+            </div>
+            <div class="card-body">
+              <h3><a href="/#cats">横滨港区企划专题</a></h3>
+              <div class="tag-row"><span class="tag">场景专题</span><span class="tag">不按番号</span><span class="tag">5段落</span></div>
+              <p class="card-desc">围绕港区仓库与码头展开的五段式企划，不进入常规番号序列，条目信息里单独标注了企划编号与拍摄许可日期。</p>
+              <div class="card-meta"><span>评分 <b>8.0</b></span><span>10-29 更新</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-thumb">
+              <img src="https://picsum.photos/seed/jp-aoyama/400/300" width="400" height="300" loading="lazy" alt="青山工作室访谈篇场景">
+              <span class="card-type">制作方档案</span>
+            </div>
+            <div class="card-body">
+              <h3><a href="/#deep">青山工作室 制作笔记访谈</a></h3>
+              <div class="tag-row"><span class="tag">访谈</span><span class="tag">制作流程</span><span class="tag">18分钟</span></div>
+              <p class="card-desc">18 分钟访谈，谈 2026 年三部的选景逻辑与剪辑顺序，提到第 2 部因场地噪音重录了两段同期声。</p>
+              <div class="card-meta"><span>评分 <b>7.6</b></span><span>10-18 上线</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-thumb">
+              <img src="https://picsum.photos/seed/jp-osaka3/400/300" width="400" height="300" loading="lazy" alt="大阪中篇第三部场景">
+              <span class="card-type">单体新作</span>
+            </div>
+            <div class="card-body">
+              <h3><a href="/#rank">大阪中篇 第三部</a></h3>
+              <div class="tag-row"><span class="tag">中篇</span><span class="tag">72分钟</span><span class="tag">单场景</span></div>
+              <p class="card-desc">全长 72 分钟只用一个场景，靠机位切换推进，画面制作 8.2 分但内容密度 6.1 分，中段有明显拖长。</p>
+              <div class="card-meta"><span>评分 <b>7.2</b></span><span>10-26 上架</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-thumb">
+              <img src="https://picsum.photos/seed/jp-shinjuku/400/300" width="400" height="300" loading="lazy" alt="新宿夜间企划第二期画面">
+              <span class="card-type">系列合集</span>
+            </div>
+            <div class="card-body">
+              <h3><a href="/#rec">新宿夜间企划 第二期</a></h3>
+              <div class="tag-row"><span class="tag">夜间外景</span><span class="tag">3段落</span><span class="tag">同期声</span></div>
+              <p class="card-desc">第二期把同期声比例提高到 60%，环境音保留完整，与前作全部后期配音的处理方式明显不同。</p>
+              <div class="card-meta"><span>评分 <b>8.3</b></span><span>11-01 更新</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-thumb">
+              <img src="https://picsum.photos/seed/jp-hokkaido/400/300" width="400" height="300" loading="lazy" alt="北海道外景企划画面">
+              <span class="card-type">厂牌企划</span>
+            </div>
+            <div class="card-body">
+              <h3><a href="/#news">北海道外景企划 冬季版</a></h3>
+              <div class="tag-row"><span class="tag">外景</span><span class="tag">冬季拍摄</span><span class="tag">待上线</span></div>
+              <p class="card-desc">制作方 10 月底公布拍摄完成，条目页先开放信息卡，正式上架时间定在 11 月下旬，时长与段落数尚未公布。</p>
+              <div class="card-meta"><span>状态 <b>预告</b></span><span>10-31 公布</span></div>
+            </div>
+          </article>
+        </div>
+        <div class="no-result" id="pickNoResult">没有匹配的条目，换个关键词试试，比如「黑潮」「重制」「关西」。</div>
+      </section>
+
+      <!-- 3 最新更新 -->
+      <section class="section" id="updates">
+        <div class="sec-head">
+          <h2>最近三十天条目更新</h2>
+          <span class="sec-sub">按上架与修订时间排序</span>
+        </div>
+        <div class="panel">
+          <ul class="update-list">
+            <li><span class="up-time">11-08</span><div class="up-main"><a href="/#picks">东京深夜剧场 第14弹</a><p>台东区四段式企划上架，第 3 段 7 分钟长镜头未做剪辑，条目页同步补入场景动线说明。</p></div></li>
+            <li><span class="up-time">11-07</span><div class="up-main"><a href="/#deep">黑潮映像 制作方档案</a><p>补全 2024 至 2026 年共 19 部作品的发行编号与拍摄地，修正两条错标的上架日期。</p></div></li>
+            <li><span class="up-time">11-06</span><div class="up-main"><a href="/#picks">新宿夜间企划 第二期</a><p>同期声比例提高到 60%，条目新增「音轨处理」字段，标注后期配音与同期声的段落分布。</p></div></li>
+            <li><span class="up-time">11-04</span><div class="up-main"><a href="/#rank">关西独立发行 第6辑</a><p>制作方直接上架，96 分钟四场景实拍，条目页记录原始发行编号 KS-026。</p></div></li>
+            <li><span class="up-time">11-02</span><div class="up-main"><a href="/#news">SILK ROAD 重制合集</a><p>补入片头说明文字与制作方访谈片段时长，重制版与 2023 原始版结尾差异做成对照条目。</p></div></li>
+            <li><span class="up-time">10-31</span><div class="up-main"><a href="/#rec">北海道外景企划 冬季版</a><p>先开放信息卡，拍摄完成日期 10-28，正式上架时间待定，暂不提供评分。</p></div></li>
+            <li><span class="up-time">10-29</span><div class="up-main"><a href="/#cats">横滨港区企划专题</a><p>五段式企划条目完成，补入拍摄许可日期与仓库实景编号，不并入常规番号序列。</p></div></li>
+            <li><span class="up-time">10-26</span><div class="up-main"><a href="/#rank">大阪中篇 第三部</a><p>单场景 72 分钟，条目新增大阪本地制作方合作记录，评分维度拆分后内容密度 6.1。</p></div></li>
+            <li><span class="up-time">10-22</span><div class="up-main"><a href="/#news">SILK ROAD 2023 三部中篇重制合集</a><p>108 分钟上架，原始版本三段结尾替换为统一收束，条目页标注「重制版」标签。</p></div></li>
+            <li><span class="up-time">10-18</span><div class="up-main"><a href="/#deep">青山工作室 制作笔记访谈</a><p>18 分钟访谈上线，谈到第 2 部因场地噪音重录两段同期声，附制作现场照片三张。</p></div></li>
+            <li><span class="up-time">10-14</span><div class="up-main"><a href="/#picks">关西独立发行 第5辑</a><p>补入第 5 辑的发行编号与场景清单，与前作的重合场景数量从 3 个修正为 2 个。</p></div></li>
+            <li><span class="up-time">10-10</span><div class="up-main"><a href="/#cats">东京都内小型制作方名录</a><p>新增 12 家制作方的基础信息，含成立年份、年均发行量与是否直接上架三项字段。</p></div></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 4 分类入口 -->
+      <section class="section" id="cats">
+        <div class="sec-head">
+          <h2>内容分类与检索入口</h2>
+          <span class="sec-sub">按发行形态与类型标签划分</span>
+        </div>
+        <div class="cat-grid">
+          <a class="cat-item" href="/#updates"><b>单体新作</b><small>按月发行、番号连续，单部 60—100 分钟</small></a>
+          <a class="cat-item" href="/#picks"><b>系列合集</b><small>同主题多期打包，注意内容重合度</small></a>
+          <a class="cat-item" href="/#news"><b>纪念复刻</b><small>旧作画质重制，需与原始版本分开记录</small></a>
+          <a class="cat-item" href="/#rec"><b>厂牌企划专题</b><small>不按番号序列，按企划编号归档</small></a>
+          <a class="cat-item" href="/#deep"><b>制作方档案</b><small>成立年份、年均发行量、上架方式</small></a>
+          <a class="cat-item" href="/#guide"><b>关西独立发行</b><small>直接上架为主，单部时长偏长</small></a>
+          <a class="cat-item" href="/#rank"><b>中篇与长篇</b><small>按有效时长与段落数分档</small></a>
+          <a class="cat-item" href="/#comments"><b>同期声与配音</b><small>按音轨处理方式筛选条目</small></a>
+        </div>
+      </section>
+
+      <!-- 5 深度解析 -->
+      <section class="section" id="deep">
+        <div class="sec-head">
+          <h2>深度解析：系列合集与单体新作该怎么区分</h2>
+        </div>
+        <div class="panel deep">
+          <h2 style="display:none">深度解析</h2>
+          <p>检索日本影像条目时，最先遇到的判断不是「哪部好看」，而是「这部属于什么发行形态」。形态判断错了，后面的时长预期、评分参照系、内容重合度判断都会跟着错。2026 年秋季的条目里，至少有三种情况会让形态标签失效：重制版沿用原始番号、企划专题借用系列名称、合集把新拍段落混进旧素材。</p>
+
+          <h3>一、番号前缀不能单独作为判断依据</h3>
+          <p>传统上，番号前缀对应制作方，数字序列对应发行顺序。SILK ROAD 的 2023 年三部中篇在 10 月 22 日重制上架时，仍然使用原始番号 SR-118、SR-121、SR-124，只在条目页加了「重制版」标签。如果只按番号检索，会看到同一番号下出现两个发行日期、两种时长、两个结尾版本。</p>
+          <p>站内的处理方式是把重制版作为独立条目挂到原始条目下，形成父子关系。判断依据有三项：发行日期是否晚于原始版本、时长是否变化、片头是否有新增说明。三项里有两项成立，就按重制版处理。SR-121 的重制版时长从 74 分钟变成 108 分钟合集的一部分，片头新增 40 秒说明，三项全部成立。</p>
+
+          <h3>二、企划专题的编号体系是另一套</h3>
+          <p>横滨港区企划专题用的是 HP- 开头的企划编号，不进入制作方的常规番号序列。这类条目的特征是：段落数固定、拍摄地集中、发行周期不规律。10 月 29 日上架的这期共 5 个段落，全部在港区仓库与码头拍摄，拍摄许可日期是 9 月 12 日，与上架日期相差 47 天。</p>
+          <p>企划专题容易被误认成系列合集，因为两者都是多段落结构。区别在于合集通常由已发行的单体作品重新打包，段落之间可能有重复；企划专题的段落是同期新拍，内容不重复。核对方法是看每个段落是否有独立的原始发行记录——有，是合集；没有，是企划专题。</p>
+
+          <table class="compare">
+            <thead><tr><th>判断项</th><th>系列合集</th><th>厂牌企划专题</th></tr></thead>
+            <tbody>
+              <tr><td>编号来源</td><td>沿用原始单体番号</td><td>独立企划编号</td></tr>
+              <tr><td>段落来源</td><td>已发行作品重新打包</td><td>同期新拍</td></tr>
+              <tr><td>内容重合</td><td>可能与前作重复</td><td>段落之间不重复</td></tr>
+              <tr><td>发行周期</td><td>跟随原始发行节奏</td><td>不规律，视拍摄许可而定</td></tr>
+            </tbody>
+          </table>
+
+          <h3>三、内容密度比总时长更能说明问题</h3>
+          <p>站内把内容密度定义为有效段落时长除以总时长。10 月 26 日上架的大阪中篇第三部全长 72 分钟，单场景拍摄，机位切换 14 次，有效段落集中在第 18 到第 52 分钟，密度 6.1 分。同为中篇的关西独立发行第 6 辑全长 96 分钟，四个场景，有效段落分布均匀，密度 7.9 分。时长多了 24 分钟，密度反而更高。</p>
+          <p>这个差距的来源可以拆开核对：大阪中篇前 18 分钟是场景建立与人物介绍，后 20 分钟是收尾与空镜，两头合计 38 分钟不承担主要内容；关西第 6 辑的四个场景各自独立，没有统一的前后铺垫，每段开头只留 40 秒左右过渡。密度差异来自结构，不来自拍摄质量。</p>
+
+          <div class="quote">判断一部中篇值不值得看，先看有效段落占总时长的比例，再看有效段落内部是否有重复机位。前者低于 60% 的条目，2026 年秋季收录里有 11 部，其中 9 部的评分落在 7.5 以下。</div>
+
+          <h3>四、同期声比例影响的是观看节奏</h3>
+          <p>新宿夜间企划第二期把同期声比例从第一期的 25% 提高到 60%，环境音完整保留，包括街道车流与店铺关门声。制作方在 11 月 1 日的更新说明里提到，第二期拍摄时租用了两个临街场地，同期录音设备换成双声道。音轨处理的差异让第二期的段落节奏比第一期慢，平均每个段落多出 90 秒。</p>
+          <p>同期声比例高的条目，观看时的注意力分布不同：环境音提供的空间信息更多，观众对场景切换的感知更连续；全后期配音的条目，段落之间的切换更突兀，但节奏更紧凑。这不是优劣判断，是选择依据。偏好连续空间感的，看同期声比例 50% 以上的条目；偏好节奏紧凑的，看后期配音为主的条目。</p>
+
+          <h3>五、关西独立发行的信息缺口</h3>
+          <p>关西地区小型制作方的条目普遍缺少三项信息：拍摄许可日期、场景具体位置、后期制作周期。11 月第一周收录的 6 部关西独立发行里，只有 2 部在条目页写明了拍摄许可日期，其余 4 部只有发行日期。信息缺口直接影响判断——没有拍摄许可日期，就无法确认拍摄与上架之间的间隔，也就无法判断制作周期是否异常短。</p>
+          <p>处理方式是分层标注：制作方公开信息为第一层，站内条目记录为第二层，观众补充为第三层。三层信息在条目页分开显示，不混在一起。第一层缺失时，第二层单独成立；第二层也缺失时，条目标注「信息待补」，不进入评分排序。</p>
+        </div>
+      </section>
+
+      <!-- 6 观看路径 -->
+      <section class="section" id="guide">
+        <div class="sec-head">
+          <h2>内容消费顺序与判断依据</h2>
+          <span class="sec-sub">从形态判断到具体条目筛选</span>
+        </div>
+        <div class="panel guide">
+          <ol class="steps">
+            <li><b>先确定发行形态</b><p>看条目页顶部的形态标签，单体新作、系列合集、企划专题、纪念复刻四类。形态决定后面的时长预期与重合度判断，跳过这一步容易把重制版当成新作。</p></li>
+            <li><b>核对番号与发行日期</b><p>同一番号出现两个日期时，晚的那个大概率是重制或再版。原始版本与重制版的差异看三项：时长、片头说明、结尾处理。</p></li>
+            <li><b>看内容密度而不是总时长</b><p>有效段落占比低于 60% 的条目，除非对特定场景或制作方有偏好，否则优先跳过。密度数据在条目页的评分区可以直接看到。</p></li>
+            <li><b>按音轨处理方式筛选</b><p>同期声比例 50% 以上的条目，空间感连续、节奏偏慢；后期配音为主的条目，段落切换紧凑。两类适合不同的观看场景。</p></li>
+            <li><b>比较同系列前后作</b><p>系列条目至少看相邻两期的评分与段落数变化。第二期比第一期段落数减少、时长增加，通常意味着单段内容被拉长，密度会下降。</p></li>
+            <li><b>信息缺口大的条目标记待补</b><p>缺少拍摄许可日期与场景位置两项的条目，先不投入时间，等制作方补全信息或站内记录更新后再看。</p></li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 7 FAQ -->
+      <section class="section faq" id="faq">
+        <div class="sec-head">
+          <h2>常见问答</h2>
+        </div>
+        <details>
+          <summary>重制版和原始版本的内容差多少？</summary>
+          <div class="ans">以 SILK ROAD 2023 三部中篇的重制合集为例，正片素材基本沿用原始版本，差异集中在三处：片头新增 40 秒说明、三部作品的结尾被替换为统一收束、部分夜景段落做了降噪处理。原始版本三段结尾合计约 11 分钟，重制版收束段落 6 分钟，净减少 5 分钟，同时新增制作方访谈 18 分钟。</div>
+        </details>
+        <details>
+          <summary>企划专题为什么不按番号排序？</summary>
+          <div class="ans">企划专题的段落是同期新拍，不进入制作方的常规发行序列，所以用独立的企划编号。横滨港区企划专题用的是 HP- 开头编号，与制作方常规番号不共用序列。排序时按企划编号与拍摄许可日期排，不按番号数字排。</div>
+        </details>
+        <details>
+          <summary>内容密度 6 分左右的中篇还值得看吗？</summary>
+          <div class="ans">看有效段落集中在哪一段。大阪中篇第三部密度 6.1 分，有效内容集中在第 18 到第 52 分钟，如果只想看核心段落，可以直接从第 18 分钟进入。密度低的条目通常有两头铺垫过长的问题，跳过开头与结尾能减少时间投入。</div>
+        </details>
+        <details>
+          <summary>同期声比例高的条目听起来会更吵吗？</summary>
+          <div class="ans">取决于拍摄场地。新宿夜间企划第二期在临街场地拍摄，同期声里保留了车流与店铺关门声，环境音层次多但底噪也高。室内场地拍摄的同期声条目，底噪通常低一些。条目页的音轨处理字段会标注拍摄场地类型，临街、室内、混合三类。</div>
+        </details>
+        <details>
+          <summary>关西独立发行的条目为什么评分普遍偏低？</summary>
+          <div class="ans">不是内容质量低，是评分维度里的系列一致性项拉低了总分。关西独立发行大多没有连续系列，单部独立成篇，系列一致性项按缺省值计算，通常给 5 分左右。三项评分里另外两项，画面制作与内容密度，关西独立发行的平均值反而高于同期其他类型。</div>
+        </details>
+        <details>
+          <summary>同一制作方的两部作品，先看哪一部？</summary>
+          <div class="ans">先看发行日期早的那部。制作方的拍摄手法在相邻两部之间通常有连续性，先看早的能建立参照。黑潮映像的东京深夜剧场从第 12 弹开始改用固定机位为主，第 14 弹延续了这个处理，如果先看第 14 弹，会对第 12 弹之前的移动机位感到不适应。</div>
+        </details>
+      </section>
+
+      <!-- 8 用户评论 -->
+      <section class="section" id="comments">
+        <div class="sec-head">
+          <h2>观众对具体条目的评价</h2>
+          <span class="sec-sub">近两周条目下的公开留言摘录</span>
+        </div>
+        <div class="comment-grid">
+          <div class="comment"><div class="comment-head"><span class="avatar" style="background:#c0392b">青</span><span class="c-name">青山路人</span><span class="c-time">11-07</span></div><p>第14弹那个7分钟长镜头是真的，中间没剪，走位换了三次。前几弹没这么拍过。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar" style="background:#2f6f8f">港</span><span class="c-name">港区夜班</span><span class="c-time">11-06</span></div><p>横滨那期五个段落，第4段仓库里的灯打得有点过，白平衡偏了。其他四段没这问题。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar" style="background:#6b4f9e">S</span><span class="c-name">SR老观众</span><span class="c-time">11-05</span></div><p>SILK ROAD 重制版的收尾比原来三段结尾好，原来每部结尾都拖，统一收束反而干净。访谈18分钟有点长，看了两遍才看完。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar" style="background:#a8762c">大</span><span class="c-name">大阪中篇党</span><span class="c-time">11-05</span></div><p>第三部前18分钟确实可以跳，我从第19分钟开始看的，没漏什么。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar" style="background:#3f7a52">关</span><span class="c-name">关西小厂追踪</span><span class="c-time">11-04</span></div><p>第6辑96分钟四个场景全是实景，这点在关西独立里算少见。就是发行编号KS-026找了好久才对上。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar" style="background:#8e5a3a">新</span><span class="c-name">新宿通勤</span><span class="c-time">11-03</span></div><p>第二期同期声60%听着有点吵，车流声一直在。不过空间感确实是第一期比不了的。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar" style="background:#2d5f7a">北</span><span class="c-name">北海道等上线</span><span class="c-time">11-02</span></div><p>冬季版信息卡挂了好几天了，时长还不公布，等得有点久。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar" style="background:#7a3f6b">剪</span><span class="c-name">剪辑票友</span><span class="c-time">11-01</span></div><p>内容密度这个指标挺好用的，之前只看时长，踩过几次两小时只有四十分钟能看的坑。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar" style="background:#4a6b3f">青</span><span class="c-name">青山工作室粉</span><span class="c-time">10-30</span></div><p>访谈里说第2部因为场地噪音重录同期声，难怪那段口型对得有点怪，原来不是后期问题。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar" style="background:#9e4a3a">东</span><span class="c-name">东京深夜常客</span><span class="c-time">10-28</span></div><p>第13弹到第14弹隔了19天，比之前快了。台东区那段动线比新宿的自然。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar" style="background:#3a5a8e">中</span><span class="c-name">中篇爱好者</span><span class="c-time">10-27</span></div><p>大阪第三部单场景72分钟，机位切了14次，看到后面有点记不清哪段看过哪段没看。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar" style="background:#8e6b2c">路</span><span class="c-name">路过看一眼</span><span class="c-time">10-25</span></div><p>不太懂这些编号，就想知道哪部画面好看，评分里画面制作那项挺直观。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar" style="background:#5e3f7a">黑</span><span class="c-name">黑潮映像观察</span><span class="c-time">10-23</span></div><p>从第12弹开始固定机位多了，移动镜头少了，风格变化挺明显的。有人喜欢有人不喜欢吧。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar" style="background:#7a5a2c">重</span><span class="c-name">重制版收集者</span><span class="c-time">10-22</span></div><p>SR-121的原始版74分钟，重制版放进108分钟合集里，单独看原始版反而更完整，合集里那段被剪短了。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar" style="background:#3f6b6b">小</span><span class="c-name">小厂挖掘机</span><span class="c-time">10-20</span></div><p>东京都内新收录的那12家制作方，有一半年均发行量不到3部，信息补全挺费劲的。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar" style="background:#6b3f3f">第</span><span class="c-name">第二期听众</span><span class="c-time">10-19</span></div><p>双声道同期录音这点在条目页写了，实际听下来左右声道区分不算明显，可能耳机问题。</p></div>
+        </div>
+      </section>
+
+      <!-- 9 相关资讯 -->
+      <section class="section" id="news">
+        <div class="sec-head">
+          <h2>制作方与发行方动态</h2>
+        </div>
+        <div class="news-list">
+          <article class="news-item">
+            <img src="https://picsum.photos/seed/jp-news-kuroshio/600/400" width="600" height="400" loading="lazy" alt="黑潮映像制作方办公室外景">
+            <div class="news-body">
+              <div class="news-meta">2026-11-07 · 制作方</div>
+              <h3><a href="/#deep">黑潮映像补全19部作品发行编号</a></h3>
+              <p>2024 至 2026 年作品全部补入拍摄地字段，其中 2 条上架日期修正为 2025-03-14 与 2025-08-02，原记录分别错标为 3 月 4 日与 8 月 12 日。</p>
+            </div>
+          </article>
+          <article class="news-item">
+            <img src="https://picsum.photos/seed/jp-news-silkroad/600/400" width="600" height="400" loading="lazy" alt="SILK ROAD 重制合集片头画面">
+            <div class="news-body">
+              <div class="news-meta">2026-11-02 · 发行</div>
+              <h3><a href="/#picks">SILK ROAD 重制合集补入片头说明</a></h3>
+              <p>片头说明时长 40 秒，制作方访谈 18 分钟单独成章。原始 SR-118 的 71 分钟版本在合集中保留 68 分钟，剪去 3 分钟空镜。</p>
+            </div>
+          </article>
+          <article class="news-item">
+            <img src="https://picsum.photos/seed/jp-news-hokkaido/600/400" width="600" height="400" loading="lazy" alt="北海道冬季外景拍摄现场">
+            <div class="news-body">
+              <div class="news-meta">2026-10-31 · 企划</div>
+              <h3><a href="/#rec">北海道冬季外景 10月28日拍摄完成</a></h3>
+              <p>制作方公布拍摄完成日期为 10 月 28 日，取景地在札幌市郊与小樽运河一带，共 6 个外景地，正式上架时间定在 11 月下旬。</p>
+            </div>
+          </article>
+          <article class="news-item">
+            <img src="https://picsum.photos/seed/jp-news-kansai/600/400" width="600" height="400" loading="lazy" alt="关西独立制作方发行记录">
+            <div class="news-body">
+              <div class="news-meta">2026-10-29 · 发行</div>
+              <h3><a href="/#rank">关西6部独立发行中4部直营上架</a></h3>
+              <p>11 月第一周收录的 6 部关西独立发行里，4 部由制作方直接上架，没有中间发行商编号，原始发行编号以 KS- 开头，单部时长均在 90 分钟以上。</p>
+            </div>
+          </article>
+          <article class="news-item">
+            <img src="https://picsum.photos/seed/jp-news-aoyama/600/400" width="600" height="400" loading="lazy" alt="青山工作室访谈录制现场">
+            <div class="news-body">
+              <div class="news-meta">2026-10-18 · 访谈</div>
+              <h3><a href="/#deep">青山工作室谈2026年选景逻辑</a></h3>
+              <p>访谈时长 18 分钟，制作方提到第 2 部因场地噪音重录两段同期声，重录时间为 2026 年 6 月 9 日，比原定后期周期多出 4 天。</p>
+            </div>
+          </article>
+          <article class="news-item">
+            <img src="https://picsum.photos/seed/jp-news-yokohama/600/400" width="600" height="400" loading="lazy" alt="横滨港区仓库拍摄许可记录">
+            <div class="news-body">
+              <div class="news-meta">2026-10-14 · 企划</div>
+              <h3><a href="/#cats">横滨港区企划拍摄许可9月12日获批</a></h3>
+              <p>拍摄许可日期为 9 月 12 日，与 10 月 29 日上架日期相差 47 天。拍摄地包括港区 3 号仓库与码头东侧，企划编号 HP- 开头，不进入常规番号序列。</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 10 相关推荐 -->
+      <section class="section" id="rec">
+        <div class="sec-head">
+          <h2>按方向索引的具体条目</h2>
+        </div>
+        <div class="rec-tags">
+          <a href="/#updates">东京深夜剧场 第12弹</a>
+          <a href="/#picks">关西独立发行 第5辑</a>
+          <a href="/#deep">黑潮映像 固定机位时期</a>
+          <a href="/#news">SR-118 原始版本</a>
+          <a href="/#cats">港区 3 号仓库实景</a>
+          <a href="/#rank">单场景中篇合集</a>
+          <a href="/#comments">同期声 50% 以上条目</a>
+          <a href="/#guide">制作方直接上架条目</a>
+        </div>
+      </section>
+
+      <!-- 11 热度榜单 -->
+      <section class="section" id="rank">
+        <div class="sec-head">
+          <h2>近三十天条目热度榜</h2>
+          <span class="sec-sub">按条目页访问量与收藏数综合排序</span>
+        </div>
+        <div class="panel">
+          <ol class="rank-list">
+            <li><a href="/#picks">东京深夜剧场 第14弹</a><em>8.4 分 · 11-06</em></li>
+            <li><a href="/#news">SILK ROAD 2023 三部中篇重制合集</a><em>8.1 分 · 10-22</em></li>
+            <li><a href="/#picks">新宿夜间企划 第二期</a><em>8.3 分 · 11-01</em></li>
+            <li><a href="/#cats">横滨港区企划专题</a><em>8.0 分 · 10-29</em></li>
+            <li><a href="/#rank">关西独立发行 第6辑</a><em>7.9 分 · 11-04</em></li>
+            <li><a href="/#deep">青山工作室 制作笔记访谈</a><em>7.6 分 · 10-18</em></li>
+            <li><a href="/#rank">大阪中篇 第三部</a><em>7.2 分 · 10-26</em></li>
+            <li><a href="/#rec">北海道外景企划 冬季版</a><em>预告 · 10-31</em></li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 12 投稿互动 -->
+      <section class="section" id="submit">
+        <div class="submit-band">
+          <div>
+            <h2>条目补充与投稿</h2>
+            <p>手上有制作方公开的发行编号、拍摄许可日期或场景位置记录，可以提交到条目补充入口。关西独立发行的信息缺口最多，优先处理带原始编号的投稿。也可以参与条目评分，画面制作、内容密度、系列一致性三项分开打。</p>
+          </div>
+          <a href="/#submit">提交条目信息</a>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 右辅助栏 -->
+    <aside class="rail-right" aria-label="辅助信息">
+      <div class="side-card">
+        <h3>今日更新条目</h3>
+        <ul class="side-list">
+          <li><a href="/#picks">东京深夜剧场 第14弹<small>11-08 · 系列合集</small></a></li>
+          <li><a href="/#deep">黑潮映像 制作方档案<small>11-07 · 档案修订</small></a></li>
+          <li><a href="/#picks">新宿夜间企划 第二期<small>11-06 · 音轨字段</small></a></li>
+          <li><a href="/#rank">关西独立发行 第6辑<small>11-04 · 单体新作</small></a></li>
+          <li><a href="/#news">SILK ROAD 重制合集<small>11-02 · 对照条目</small></a></li>
+        </ul>
+      </div>
+
+      <div class="side-card">
+        <h3>条目时间线</h3>
+        <ul class="side-timeline">
+          <li><b>北海道冬季版拍摄完成</b><time>10-28</time></li>
+          <li><b>横滨港区企划上架</b><time>10-29</time></li>
+          <li><b>大阪中篇第三部上架</b><time>10-26</time></li>
+          <li><b>SILK ROAD 重制合集上架</b><time>10-22</time></li>
+          <li><b>青山工作室访谈上线</b><time>10-18</time></li>
+        </ul>
+      </div>
+
+      <div class="side-card">
+        <h3>评分维度说明</h3>
+        <ul class="side-list">
+          <li><a href="/#deep">画面制作<small>灯光、场景调度、机位</small></a></li>
+          <li><a href="/#deep">内容密度<small>有效段落时长 ÷ 总时长</small></a></li>
+          <li><a href="/#faq">系列一致性<small>与同系列前作的连贯度</small></a></li>
+          <li><a href="/#guide">音轨处理<small>同期声 / 后期配音比例</small></a></li>
+        </ul>
+      </div>
+
+      <div class="side-card">
+        <h3>快捷入口</h3>
+        <ul class="side-list">
+          <li><a href="/#submit">条目补充投稿</a></li>
+          <li><a href="/#comments">参与条目评分</a></li>
+          <li><a href="/#cats">按发行形态筛选</a></li>
+          <li><a href="/#guide">观看顺序指南</a></li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<!-- 页脚 -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true">
+            <rect width="64" height="64" rx="14" fill="#2e3040"/>
+            <path d="M18 44V20h7v9h14v-9h7v24h-7v-9H25v9z" fill="#e8b44a"/>
+            <circle cx="46" cy="20" r="4" fill="#c0392b"/>
+          </svg>
+          <span class="brand-text">jizz日本版jlzz&src=tab_video</span>
+        </div>
+        <p class="footer-desc">覆盖 2024 年至今的日本影像条目，以单体新作、系列合集、厂牌企划专题、纪念复刻四类发行形态归档。每周三与周日更新条目记录，月末汇总关西独立发行的新增编号。</p>
+      </div>
+      <div>
+        <h4>内容形态</h4>
+        <ul class="footer-links">
+          <li><a href="/#updates">单体新作</a></li>
+          <li><a href="/#picks">系列合集</a></li>
+          <li><a href="/#news">纪念复刻</a></li>
+          <li><a href="/#rec">厂牌企划专题</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>判断依据</h4>
+        <ul class="footer-links">
+          <li><a href="/#deep">深度解析</a></li>
+          <li><a href="/#guide">观看路径</a></li>
+          <li><a href="/#faq">常见问答</a></li>
+          <li><a href="/#rank">热度榜单</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>参与</h4>
+        <ul class="footer-links">
+          <li><a href="/#submit">条目补充投稿</a></li>
+          <li><a href="/#comments">条目评分留言</a></li>
+          <li><a href="/#cats">分类检索</a></li>
+          <li><a href="/#overview">领域概览</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>条目信息含示例数据，制作方公开信息以原始发行记录为准。</span>
+      <span>最近条目更新：2026-11-08 · 东京深夜剧场 第14弹</span>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+
+<script>
+(function(){
+  var hamburger=document.getElementById('hamburger');
+  var mobileMenu=document.getElementById('mobileMenu');
+  var mask=document.getElementById('mask');
+  var toTop=document.getElementById('toTop');
+
+  function closeMenu(){
+    mobileMenu.classList.remove('open');
+    mask.classList.remove('show');
+    hamburger.setAttribute('aria-expanded','false');
+    hamburger.setAttribute('aria-label','打开菜单');
+  }
+  function openMenu(){
+    mobileMenu.classList.add('open');
+    mask.classList.add('show');
+    hamburger.setAttribute('aria-expanded','true');
+    hamburger.setAttribute('aria-label','关闭菜单');
+  }
+  hamburger.addEventListener('click',function(){
+    if(mobileMenu.classList.contains('open')){closeMenu();}else{openMenu();}
+  });
+  mask.addEventListener('click',closeMenu);
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){closeMenu();}
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',closeMenu);
+  });
+
+  // 搜索筛选（精选条目）
+  var pickGrid=document.getElementById('pickGrid');
+  var pickNoResult=document.getElementById('pickNoResult');
+  var cards=pickGrid?Array.prototype.slice.call(pickGrid.querySelectorAll('.card')):[];
+
+  function doSearch(q){
+    q=(q||'').trim().toLowerCase();
+    if(!q){
+      cards.forEach(function(c){c.style.display='';});
+      pickNoResult.classList.remove('show');
+      return;
+    }
+    var shown=0;
+    cards.forEach(function(c){
+      var text=c.textContent.toLowerCase();
+      if(text.indexOf(q)>-1){c.style.display='';shown++;}else{c.style.display='none';}
+    });
+    if(shown===0){pickNoResult.classList.add('show');}else{pickNoResult.classList.remove('show');}
+    var target=document.getElementById('picks');
+    if(target){
+      var top=target.getBoundingClientRect().top+window.pageYOffset-118;
+      window.scrollTo({top:top,behavior:'smooth'});
+    }
+  }
+
+  var si=document.getElementById('searchInput');
+  var sb=document.getElementById('searchBtn');
+  var msi=document.getElementById('mSearchInput');
+  var msb=document.getElementById('mSearchBtn');
+  if(sb){sb.addEventListener('click',function(){doSearch(si.value);});}
+  if(si){si.addEventListener('keydown',function(e){if(e.key==='Enter'){doSearch(si.value);}});}
+  if(msb){msb.addEventListener('click',function(){doSearch(msi.value);closeMenu();});}
+  if(msi){msi.addEventListener('keydown',function(e){if(e.key==='Enter'){doSearch(msi.value);closeMenu();}});}
+
+  // 回到顶部
+  window.addEventListener('scroll',function(){
+    if(window.pageYOffset>window.innerHeight){toTop.classList.add('show');}
+    else{toTop.classList.remove('show');}
+  },{passive:true});
+  toTop.addEventListener('click',function(){
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebSite",
+  "name":"jizz日本版jlzz&src=tab_video",
+  "description":"日本影像作品条目索引，按单体新作、系列合集、厂牌企划专题、纪念复刻四类发行形态归档，含制作方档案、评分维度与观看路径判断。",
+  "inLanguage":"zh-CN"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"重制版和原始版本的内容差多少？","acceptedAnswer":{"@type":"Answer","text":"以 SILK ROAD 2023 三部中篇的重制合集为例，正片素材基本沿用原始版本，差异集中在三处：片头新增 40 秒说明、三部作品的结尾被替换为统一收束、部分夜景段落做了降噪处理。原始版本三段结尾合计约 11 分钟，重制版收束段落 6 分钟，净减少 5 分钟，同时新增制作方访谈 18 分钟。"}},
+    {"@type":"Question","name":"企划专题为什么不按番号排序？","acceptedAnswer":{"@type":"Answer","text":"企划专题的段落是同期新拍，不进入制作方的常规发行序列，所以用独立的企划编号。横滨港区企划专题用的是 HP- 开头编号，与制作方常规番号不共用序列。排序时按企划编号与拍摄许可日期排，不按番号数字排。"}},
+    {"@type":"Question","name":"内容密度 6 分左右的中篇还值得看吗？","acceptedAnswer":{"@type":"Answer","text":"看有效段落集中在哪一段。大阪中篇第三部密度 6.1 分，有效内容集中在第 18 到第 52 分钟，如果只想看核心段落，可以直接从第 18 分钟进入。密度低的条目通常有两头铺垫过长的问题，跳过开头与结尾能减少时间投入。"}},
+    {"@type":"Question","name":"同期声比例高的条目听起来会更吵吗？","acceptedAnswer":{"@type":"Answer","text":"取决于拍摄场地。新宿夜间企划第二期在临街场地拍摄，同期声里保留了车流与店铺关门声，环境音层次多但底噪也高。室内场地拍摄的同期声条目，底噪通常低一些。条目页的音轨处理字段会标注拍摄场地类型，临街、室内、混合三类。"}},
+    {"@type":"Question","name":"关西独立发行的条目为什么评分普遍偏低？","acceptedAnswer":{"@type":"Answer","text":"不是内容质量低，是评分维度里的系列一致性项拉低了总分。关西独立发行大多没有连续系列，单部独立成篇，系列一致性项按缺省值计算，通常给 5 分左右。三项评分里另外两项，画面制作与内容密度，关西独立发行的平均值反而高于同期其他类型。"}},
+    {"@type":"Question","name":"同一制作方的两部作品，先看哪一部？","acceptedAnswer":{"@type":"Answer","text":"先看发行日期早的那部。制作方的拍摄手法在相邻两部之间通常有连续性，先看早的能建立参照。黑潮映像的东京深夜剧场从第 12 弹开始改用固定机位为主，第 14 弹延续了这个处理，如果先看第 14 弹，会对第 12 弹之前的移动机位感到不适应。"}}
+  ]
+}
+</script>
+</body>
+                    </html>
